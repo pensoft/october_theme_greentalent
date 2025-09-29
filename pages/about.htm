@@ -1,0 +1,121 @@
+url = "/about"
+layout = "default"
+title = "About"
+is_hidden = 0
+meta_description = "about page"
+seo_keywords = "keywords"
+robot_index = "index"
+robot_follow = "follow"
+
+[siteSearchInclude]
+
+[jumbotron about]
+jumbotron = "about-project"
+title = 1
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron aim]
+jumbotron = "aim"
+title = 1
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron trainings]
+jumbotron = "five-open-access-oa-training-modules-ri-support-covering"
+title = 1
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron modules]
+jumbotron = "five-interdisciplinary-oa-modules-focusing"
+title = 1
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron board]
+jumbotron = "international-advisory-board"
+title = 1
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron supporting]
+jumbotron = "supporting-45-green-talents"
+title = 1
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron objectives]
+jumbotron = "objectives"
+title = 1
+background = "transperant"
+templates = "template3"
+description_limit = 0
+==
+<?php
+
+function onStart(){
+    if (class_exists('\Jenssegers\Agent\Agent')) {
+        $Agent = new \Jenssegers\Agent\Agent();
+        $this['is_mobile'] = false;
+        if ($Agent->isMobile()) {
+           $this['is_mobile'] = true;
+        }
+    }
+}
+
+?>
+==
+{% component 'siteSearchInclude' %}
+
+<section class="container about" role="region" aria-labelledby="about-heading" data-aos="fade-up">
+    <div class="row middle-xs">
+        <div class="col-md-6 col-xs-12">
+            {% component 'about' %}
+        </div>
+        <div class="col-md-6 col-xs-12">
+            {% partial 'about' %}
+        </div>
+    </div>
+
+</section>
+
+<section class="container aim" role="region" aria-labelledby="aim-heading" data-aos="fade-up">
+    <div class="row middle-xs">
+        <div class="col-md-6 col-xs-12">
+            {% partial 'aim' %}
+        </div>
+
+        <div class="col-md-6 col-xs-12">
+            {% component 'aim' %}
+        </div>
+
+    </div>
+</section>
+
+<section class="container objectives" role="region" aria-labelledby="objectives-heading" data-aos="fade-up">
+    {% component 'objectives' %}
+</section>
+
+<section class="container supporting" role="region" aria-labelledby="supporting-heading" data-aos="fade-up">
+{% component 'supporting' %}
+</section>
+
+
+<section class="container1000 trainings" role="region" aria-labelledby="oa-trainings-heading" data-aos="fade-up">
+{% component 'trainings' %}
+</section>
+
+<section class="container1000 modules" role="region" aria-labelledby="oa-modules-heading" data-aos="fade-up">
+{% component 'modules' %}
+</section>
+
+<section class="container1000 board" role="region" aria-labelledby="advisory-board-heading" data-aos="fade-up">
+{% component 'board' %}
+</section>

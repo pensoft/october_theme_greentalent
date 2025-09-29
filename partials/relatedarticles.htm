@@ -1,0 +1,22 @@
+<div class="row related-news-records">
+{% for record in related %}
+    <div class="col-md-6 col-xs-12 highlight-news mb-1" data-aos="fade-up">
+        <div class="row news-card">
+            <div class="img-container">
+                <a href="/news/{{record.slug}}">
+                    <img src="{{ record.cover.path }}" alt="{{ record.title }}">
+                </a>
+                <a class="news-title" href="/news/{{record.slug}}">
+                    <div class="news-date">
+                        {{ record.published_at|date('d F Y')|upper }}
+                    </div>
+                    <div class="title">
+                        <h3>{{ record.title|length > 70 ? record.title|striptags|slice(0, 70)|replace({"&nbsp;": " ", ".": ". "}) ~ '...' : record.title|striptags|replace({"&nbsp;": " ", ".": ". "})  }}</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+{% endfor %}
+</div>

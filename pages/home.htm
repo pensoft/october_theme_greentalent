@@ -1,0 +1,207 @@
+url = "/"
+layout = "default"
+title = "GREEN TALENT"
+is_hidden = 0
+meta_description = "The GREEN TALENT project"
+robot_index = "index"
+robot_follow = "follow"
+
+[jumbotron vision]
+jumbotron = "vision"
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron mission]
+jumbotron = "mission"
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron how]
+jumbotron = "how-will-we-do-it"
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron numbers]
+jumbotron = "project-numbers"
+background = "transperant"
+templates = "template3"
+description_limit = 0
+==
+<?php
+use Pensoft\Articles\Models\Article;
+use Pensoft\Partners\Models\Partners as Partner;
+use Carbon\Carbon;
+
+
+function onStart(){
+
+    $this['hubs'] = Partner::where('type', 2)->get();
+    $this['consortium_partners'] = Partner::where('type', 1)->get();
+
+    $this['highlights'] = Article::news()->where('published', 'true')->descPublished()->take(3)->get()->map(function($item){
+        $item->content = str_limit(strip_tags($item->content), 60);
+        $item->href = $item->slug;
+        return $item;
+    });
+}
+?>
+==
+<!-- Mission Section -->
+<section class="container mission" role="region" aria-labelledby="mission-heading">
+    <div class="row between-md around-xs">
+        <div class="col-md-6 col-xs-12">
+            <h2 id="mission-heading" data-aos="fade-up">Mission</h2>
+            {% component 'mission' %}
+        </div>
+        <div class="col-md-6 col-xs-12">
+            <h2 id="vision-heading" data-aos="fade-up">Vision</h2>
+            {% component 'vision' %}
+        </div>
+    </div>
+</section>
+
+<!-- how Section -->
+<section class="container-fluid how_will" role="region" aria-labelledby="how-heading">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-xs-12">
+                <h2 id="how-heading" data-aos="fade-up">How will we do it?</h2>
+            </div>
+            <div class="col-md-6 col-xs-12">
+                <div class="how_will_content">
+                    {% component 'how' %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Hubs Section -->
+<section class="container1000 demonstration_hubs" role="region" aria-labelledby="hubs-heading">
+    <h2 id="hubs-heading" data-aos="fade-up">Demonstration Hubs</h2>
+    <div class="row">
+        {% for hub in hubs %}
+        <div class="col-md-6 col-xs-12">
+            <div class="demonstration_hub_item {{hub.instituion|slug}}">
+                <div class="labels">
+                    <div class="label1">95% urban population</div>
+                    <div class="label2">Tourism-driven rconomy</div>
+                    <div class="label3">Highly-urbanised landscpae</div>
+                </div>
+
+                <div class="arrow_exapnder">
+                    {{hub.instituion}}
+                </div>
+
+                <div class="description">
+                    {{hub.add_description|raw}}
+                </div>
+
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Numbers Section -->
+<section class="container1000 numbers_container" role="region" aria-labelledby="numbers-heading">
+    <h2 id="numbers-heading" data-aos="fade-up">Project in Numbers</h2>
+    {% component 'numbers' %}
+</section>
+
+<!-- Latest News Section -->
+{% if highlights.count %}
+<section class="latest-news-container" role="region" aria-labelledby="news-heading">
+    <div class="container mb-0 pb-0">
+        <div class="row nav-row">
+            <div class="col-md-12 col-xs-12">
+                <h2 id="news-heading">Latest news</h2>
+            </div>
+<!--            <div class="col-md-3 col-xs-12 view-all-button">-->
+<!--                <a href="{{'news'|page}}" class="btn btn-primary" aria-label="View all news articles">View all news</a>-->
+<!--            </div>-->
+        </div>
+    </div>
+
+    <div class="container home-container">
+        <div class="row highligts-row">
+            <div class="col-md-8 col-xs-12 latest-news">
+                {% if highlights|length %}
+                <article class="news-card" role="article" aria-labelledby="featured-article-title">
+                    <div class="img-container">
+                        <a href="{{'news'|page}}/{{highlights[0].slug}}" aria-label="Read full article: {{ highlights[0].title|striptags }}">
+                            <img src="{{ highlights[0].cover.path }}"
+                                 alt="Featured image for article: {{ highlights[0].title|striptags }}"
+                                 role="img">
+                        </a>
+
+                        <div class="news-content news-title">
+                            <time class="news-date" datetime="{{ highlights[0].published_at|date('Y-m-d') }}" aria-label="Published on {{ highlights[0].published_at|date('d F Y') }}">
+                                {{ highlights[0].published_at|date('d F Y')|upper }}
+                            </time>
+                            <h3 id="featured-article-title" class="title">
+                                <a href="{{'news'|page}}/{{highlights[0].slug}}" aria-describedby="featured-article-date">
+                                    {{ highlights[0].title|length > 70 ? highlights[0].title|striptags|slice(0, 70)|replace({"&nbsp;": " ", ".": ". "}) ~ '...' : highlights[0].title|striptags|replace({"&nbsp;": " ", ".": ". "}) }}
+                                </a>
+                            </h3>
+                        </div>
+                    </div>
+                </article>
+                {% endif %}
+            </div>
+
+            <aside class="col-md-4 col-xs-12 highlight-news" role="complementary" aria-label="Additional news articles">
+                <h3 class="sr-only">More recent articles</h3>
+                {% for article in highlights|slice(1, 2) %}
+                <article class="row news-card" role="article" aria-labelledby="article-title-{{loop.index}}">
+                    <div class="img-container">
+                        <a href="{{'news'|page}}/{{article.slug}}" aria-label="Read full article: {{ article.title|striptags }}">
+                            <img src="{{ article.cover.path }}"
+                                 alt="Image for article: {{ article.title|striptags }}"
+                                 role="img">
+                        </a>
+
+                        <div class="news-content news-title">
+                            <time class="news-date" datetime="{{ article.published_at|date('Y-m-d') }}" aria-label="Published on {{ article.published_at|date('d F Y') }}">
+                                {{ article.published_at|date('d F Y')|upper }}
+                            </time>
+                            <h4 id="article-title-{{loop.index}}" class="title">
+                                <a href="{{'news'|page}}/{{article.slug}}" aria-describedby="article-date-{{loop.index}}">
+                                    {{ article.title|length > 60 ? article.title|striptags|slice(0, 60)|replace({"&nbsp;": " ", ".": ". "}) ~ '...' : article.title|striptags|replace({"&nbsp;": " ", ".": ". "}) }}
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                </article>
+                {% endfor %}
+            </aside>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+
+
+<!-- Consortium partners Section -->
+<section class="container-fluid consortium_partners_container" role="region" aria-labelledby="consortium-heading">
+    <h2 id="consortium-heading">Consortium</h2>
+    <div class="row middle-xs between-xs">
+        <div class="col-xs-12 center-xs consortium_partners">
+            <div id="slick">
+                {% for c in consortium_partners %}
+                <div class="slide">
+                    <div class="partner_logo"><a href="{{c.instituion_url}}" target="_blank">
+                        <img alt="{{ c.instituion }}" src="{{c.cover.thumb(auto,90,{'mode':'crop'})}}"></a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>

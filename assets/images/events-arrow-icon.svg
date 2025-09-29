@@ -1,0 +1,9 @@
+<svg id="events-arrow-icon" xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
+  <g id="Group_12" data-name="Group 12" transform="translate(-1149.689 -1621.22)" opacity="0.61">
+    <g id="Ellipse_5" data-name="Ellipse 5" transform="translate(1149.689 1621.22)" fill="none" stroke="#004d74" stroke-width="1.3">
+      <circle cx="22" cy="22" r="22" stroke="none"/>
+      <circle cx="22" cy="22" r="21.35" fill="none"/>
+    </g>
+    <path id="arrow-sm-left-svgrepo-com" d="M0,5.606H13.454M0,5.606,5.606,0M0,5.606l5.606,5.606" transform="translate(1177.938 1648.516) rotate(180)" fill="none" stroke="#004d74" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3"/>
+  </g>
+</svg>

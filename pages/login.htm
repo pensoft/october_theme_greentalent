@@ -1,0 +1,40 @@
+title = "Login"
+url = "/login"
+layout = "default"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+
+[account]
+redirect = "internal-documents"
+paramCode = "code"
+forceSecure = 0
+requirePassword = 0
+==
+    {% if not user %}
+<div class="container contact_container">
+    <div class="row middle-xs contact_info">
+
+        <div class="col-md-6 col-xs-12 start-md center-xs coordinator_image">
+            <div class="coordinator-bg">
+                <img src="{{'leaves.png'|media}}">
+            </div>
+
+        </div>
+
+        <div class="col-md-6 col-xs-12 coordinator_info">
+            <div class="login_intro">
+                This is an internal password-protected environment for consortium members only.
+            </div>
+            <div class="login_form_container">
+                {% partial 'components/account/signin' %}
+            </div>
+        </div>
+
+
+
+    </div>
+
+</div>
+
+{% endif %}

@@ -1,0 +1,64 @@
+url = "/partners/:id?|[a-zA-Z\-0-9]"
+layout = "default"
+title = "Partners"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+==
+<?php
+use Pensoft\Partners\Models\Partners;
+use Pensoft\Cardprofiles\Models\Profiles;
+
+function onStart(){
+	$this['partners'] =  Partners::where('type', 1)->get();
+    $this['partner'] = Partners::where('id', $this->param('id'))->first();
+    $this['is_detail_page'] = $this['partner'] ? true : false;
+}
+
+?>
+==
+
+<div class="container" style="padding-top: 0;">
+    {% if is_detail_page %}
+    <div class="row mt-4">
+        <div class="col-md-10 col-xs-12">
+            <h2>{{partner.instituion}}</h2>
+        </div>
+        <div class="col-md-2 end-md center-xs col-xs-12">
+            <nav aria-label="Breadcrumb">
+                <a href="/partners" class="btn btn-secondary" aria-label="Go back to partners list">Back to partners</a>
+            </nav>
+        </div>
+    </div>
+    <div class="row">
+        <img src="{{partner.background.path}}" title="{{partner.instituion}}" alt="{{partner.instituion}}" class="partnercontent_image">
+    </div>
+    <div class="row">
+        {{partner.content|raw}}
+    </div>
+    <div class="row">
+        <a href="{{partner.instituion_url}}" target="_blank" class="btn btn-secondary">Visit website</a>
+    </div>
+    {% else %}
+    <div class="row start-md center-xs partner_items_row">
+        {% for k, partner in partners %}
+        <article class="partner-item" role="article" tabindex="0" aria-labelledby="partner-title-{{k}}">
+            <img src="{{partner.cover.path}}"
+                 title="{{partner.instituion}}"
+                 alt="{{partner.instituion}} logo">
+            <div class="overlay">
+                <div class="partner_title" id="partner-title-{{k}}">{{partner.instituion}}</div>
+                <div class="read_more_container">
+                    <a
+                        href="/partners/{{partner.id}}"
+                        class="read_more"
+                        aria-label="Read more about {{partner.instituion}}"
+                        role="button">Read more</a>
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+</div>

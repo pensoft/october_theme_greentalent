@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="94" height="40" viewBox="0 0 94 40">
+  <g id="events" transform="translate(-64 -1725)">
+    <rect id="Rectangle_3796" data-name="Rectangle 3796" width="94" height="29" rx="10" transform="translate(64 1732)" fill="#bae3e8"/>
+    <text id="Events-2" data-name="Events" transform="translate(77 1736)" fill="#01bdd6" font-size="16" font-family="RedHatDisplay-Bold, Red Hat Display" font-weight="700"><tspan x="-26.312" y="16">Events</tspan></text>
+    <circle id="Ellipse_55" data-name="Ellipse 55" cx="6" cy="6" r="6" transform="translate(81 1725)" fill="rgba(255,255,255,0.32)"/>
+    <circle id="Ellipse_56" data-name="Ellipse 56" cx="2.5" cy="2.5" r="2.5" transform="translate(142 1737)" fill="rgba(255,255,255,0.32)"/>
+    <circle id="Ellipse_57" data-name="Ellipse 57" cx="2.5" cy="2.5" r="2.5" transform="translate(73 1752)" fill="rgba(255,255,255,0.32)"/>
+    <circle id="Ellipse_58" data-name="Ellipse 58" cx="4" cy="4" r="4" transform="translate(126 1757)" fill="rgba(255,255,255,0.32)"/>
+  </g>
+</svg>

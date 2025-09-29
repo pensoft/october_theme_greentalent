@@ -1,0 +1,138 @@
+url = "/media-center"
+layout = "default"
+title = "Media center"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+==
+<?php
+use Pensoft\Media\Models\MediaLogos;
+use Pensoft\Media\Models\Flyers;
+use Pensoft\Media\Models\Newsletters;
+use Pensoft\Media\Models\Presentations;
+use Pensoft\Media\Models\Pressreleases;
+use Pensoft\Media\Models\Videos;
+
+function onStart(){
+	$this['logos'] =  MediaLogos::get();
+	$this['flyers'] =  Flyers::get();
+	$this['newsletters'] =  Newsletters::get();
+	$this['presentations'] =  Presentations::get();
+	$this['pressreleases'] =  Pressreleases::get();
+	$this['videos'] =  Videos::get();
+}
+?>
+==
+
+{% if logos.count() %}
+<div class="container-fluid media_center_item" data-aos="fade-up">
+    <div class="container media-center-container">
+        <div class="row middle-xs">
+            <div class="col-md-4 col-xs-12">
+                <h2 class="media_label">Brand Kit</h2>
+                <span class="explore_label">Explore the direction of Green Talent for appropriate use</span>
+                <a href="{{url('media-center')}}/brand-kit" class="btn btn-primary" title="View brand materials">View brand kit</a>
+            </div>
+            <div class="col-md-8 col-xs-12">
+                <a href="{{url('media-center')}}/brand-kit" title="Brand Kit">
+                    <div class="card_image_container media_item logo" title="Brand Kit">
+                        <div class="card_bg">
+                            <span class="card_icon"></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+{% if videos.count() %}
+<div class="container-fluid media_center_item" data-aos="fade-up">
+    <div class="container media-center-container">
+        <div class="row middle-xs">
+            <div class="col-md-4 col-xs-12">
+                <h2 class="media_label">Videos</h2>
+                <span class="explore_label">Explore the direction of Green Talent for appropriate use</span>
+                <a href="{{url('media-center')}}/videos" class="btn btn-primary" title="Watch videos">Watch videos</a>
+            </div>
+            <div class="col-md-8 col-xs-12">
+                <a href="{{url('media-center')}}/videos" title="Videos">
+                    <div class="card_image_container media_item videos" title="Videos">
+                        <div class="card_bg"><span class="card_icon"></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if flyers.count() %}
+<div class="container-fluid media_center_item" data-aos="fade-up">
+    <div class="container media-center-container">
+        <div class="row middle-xs">
+            <div class="col-md-4 col-xs-12">
+                <h2 class="media_label">Project materials</h2>
+                <span class="explore_label">Explore the direction of Green Talent for appropriate use</span>
+                <a href="{{url('media-center')}}/project-materials" class="btn btn-primary" title="View promotional materials">View project materials</a>
+            </div>
+            <div class="col-md-8 col-xs-12">
+                <a href="{{url('media-center')}}/project-materials" title="Promotional materials">
+                    <div class="card_image_container media_item flyer" title="Promotional materials"><div class="card_bg"><span class="card_icon"></span></div></div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if pressreleases.count() %}
+<div class="container-fluid media_center_item" data-aos="fade-up">
+    <div class="container media-center-container">
+        <div class="row middle-xs">
+            <div class="col-md-4 col-xs-12">
+                <h2 class="media_label">Press releases</h2>
+                <span class="explore_label">Explore the direction of Green Talent for appropriate use</span>
+                <a href="{{url('media-center')}}/press-releases" class="btn btn-primary" title="View press releases">View press releases</a>
+            </div>
+            <div class="col-md-8 col-xs-12">
+                <a href="{{url('media-center')}}/press-releases" title="Press releases">
+                    <div class="card_image_container media_item press" title="Press releases">
+                        <div class="card_bg">
+                            <span class="card_icon"></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if newsletters.count() %}
+<div class="container-fluid media_center_item" data-aos="fade-up">
+    <div class="container media-center-container">
+        <div class="row middle-xs">
+            <div class="col-md-4 col-xs-12">
+                <h2 class="media_label">Newsletters</h2>
+                <span class="explore_label">Explore the direction of Green Talent for appropriate use</span>
+                <a href="{{url('media-center')}}/newsletters" class="btn btn-primary" title="View newsletters">View newsletters</a>
+            </div>
+            <div class="col-md-8 col-xs-12">
+                <a href="{{url('media-center')}}/newsletters" title="Newsletters">
+                    <div class="card_image_container media_item newsletter" title="Newsletters">
+                        <div class="card_bg">
+                            <span class="card_icon"></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+

@@ -1,0 +1,43 @@
+url = "/internal-repository/sharepoint"
+layout = "default"
+title = "Sharepoint"
+
+[session]
+security = "user"
+allowedUserGroups[] = "internal-users"
+allowedUserGroups[] = "registered"
+allowedUserGroups[] = "guest"
+redirect = "home"
+==
+{% component 'session' %}
+<div class="container">
+	<div class="row middle-xs between-xs">
+		<div class="col-xs-12 col-md-5 mt-1 mb-1">
+
+		</div>
+
+		<div class="col-xs-12 col-md-3 end-xs">
+			<a href="{{url('internal-repository')}}" class="back"> <div class="arrow-left end-xs"></div> &nbsp;Back to documents</a>
+		</div>
+
+		<div class="col-xs-12 col-md-12 end-xs">
+			<h1 class="base_heading inner-page">Sharepoint</h1>
+		</div>
+
+
+		<div class="col-xs-12 mt-2">
+			<!-- <p><iframe src="https://drive.google.com/embeddedfolderview?id=1ZGMdacRqJU09m8ALNRrJ-sCYEdmf0Em_#list" width="100%" height="352" frameborder="0" marginheight="0" marginwidth="0"></iframe></p>-->
+
+
+			<p><em>This folder contains a view-only copy of important project forms and tables (including&nbsp;dissemination reports). You can view and consult these documents at any time to receive an up-to-date overview on their status. </em></p>
+
+			<p><em>If you wish to change or add contents to the dissemination tables, please send your request to <strong>Margarita Grudova</strong>&nbsp;at <a href="mailto:m.grudova@pensoft.net">m.grudova@pensoft.net</a></em></p>
+
+			<p><em>Should you wish to adapt or have questions concerning the project's contact lists, please contact <strong>Bilyana Avtova</strong> at <a href="mailto:b.avtova@pensoft.net">b.avtova@pensoft.net
+
+
+
+	</div>
+
+
+</div>

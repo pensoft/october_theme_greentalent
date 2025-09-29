@@ -1,0 +1,49 @@
+url = "/demonstration-hubs"
+layout = "default"
+title = "Demonstration Hubs"
+
+[siteSearchInclude]
+
+[jumbotron aim]
+jumbotron = "aim2"
+title = 1
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron countries]
+jumbotron = "countries"
+background = "transperant"
+templates = "template3"
+description_limit = 0
+==
+<?php
+use Pensoft\Partners\Models\Partners;
+
+function onStart(){
+	$this['partners'] =  Partners::where('type', 2)->get();
+}
+
+?>
+==
+{% component 'siteSearchInclude' %}
+{% component 'aim' %}
+<div class="container">
+    <h2>Locations</h2>
+    <div class="tabs">
+        {% for k, partner in partners %}
+        <a role="article" tabindex="0" href="#{{partner.instituion|slug}}">
+            <span class="partner_title">{{partner.instituion}}</span>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+    {% for k, partner in partners %}
+    <div class="container-fluid data_container" id="{{partner.instituion|slug}}" style="background: url({{partner.cover.path}}) bottom right no-repeat;">
+        <div class="container">
+            <div class="partner_description">{{partner.content|raw}}</div>
+        </div>
+    </div>
+    {% endfor %}
+
+{% component 'countries' %}

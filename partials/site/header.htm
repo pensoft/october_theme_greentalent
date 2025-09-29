@@ -1,0 +1,87 @@
+[menu]
+start = "id-1"
+activeNode = 0
+listItemClasses = "nav-item"
+primaryClasses = "navbar-nav"
+secondaryClasses = "dropdown-menu"
+numberOfLevels = 2
+
+[jumbotron]
+jumbotron = "intro"
+background = "transperant"
+templates = "template1"
+description_limit = 0
+
+[menu login]
+start = "id-27"
+activeNode = "id-25"
+listItemClasses = "item"
+primaryClasses = "nav nav-pills"
+secondaryClasses = "dropdown-menu"
+numberOfLevels = 2
+==
+
+<nav class="pr-1 pl-1 navbar fixed" id="headernavbar" role="navigation" aria-label="Main navigation">
+    <div id="menuToggle">
+        <input type="checkbox" id="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="headerNavbarNav" />
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        {% component 'menu' %}
+    </div>
+
+    <a href="{{'home'|page}}" class="navbar-brand" aria-label="Homepage - {{site_name}}" style="background: url('{{ this.theme.site_logo.getPath() }}') center no-repeat; background-size: contain;">
+        <span class="sr-only">{{site_name}} - Home</span>
+    </a>
+
+    <div class="navbar-collapse collapse center-xs" id="headerNavbarNav" role="menu" aria-hidden="true" style="display: none;">
+        {% component 'menu' %}
+    </div>
+
+</nav>
+
+<main id="main-content" role="main">
+    {% if page_id == 'home' %}
+    <div class="header-image video-carousel">
+        <div class="carousel-slide">
+            <video autoplay loop muted playsinline class="header-video-media">
+                <source src="{{ 'bg-video.mp4'|media }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="jumbotron hero">
+            <div class="container">
+                <div class="intro">
+                    <h1 class="intro-text">
+                        {{tag_line|raw}}
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% else %}
+    <div class="header-image-bar" {% if user and this.page.id != 'home' %} style="margin-top: 154px!important;" {% endif %}>
+        <video autoplay loop muted playsinline class="header-video">
+            <source src="{{ 'bg-video.mp4'|media }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="jumbotron">
+            <div class="container">
+                <div class="intro">
+                    <h1 data-aos-duration="1500" data-aos-delay="500" data-aos-offset="-200">
+                        {% if page_title %} {{page_title}} {% else %} {{site_name}} {% endif %}
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</main>
+
+{% if user %}
+<script>$(document).trigger('profile')</script>
+<script>$(document).trigger('signout')</script>
+{% else %}
+<script>$(document).trigger('signin')</script>
+{% endif %}

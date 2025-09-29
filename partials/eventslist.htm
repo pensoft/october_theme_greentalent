@@ -1,0 +1,25 @@
+<div class="events_list_container">
+    {% for entry in records %}
+    {% set url = '/events/' ~ entry.slug %}
+    <div class="row entry_item middle-xs">
+
+        <div class="col-md-11 col-xs-12 body_container">
+            {% if entry.cover_image %}
+            <a href="{{url}}">
+                <img src="{{entry.cover_image.getThumb(auto, auto, {'mode': 'crop'})}}">
+            </a>
+            {% endif %}
+            <a href="{{url}}">
+                <div class="entry_content">
+                    <div class="date_container">{{entry.start|date("j M")}}</div>
+                    <div class="entry_title">{{entry.title|raw}}</div>
+                </div>
+            </a>
+
+        </div>
+        <div class="col-md-1 col-xs-12 read-more-events end-md center-xs">
+            <a href="{{url}}" class="read-more">Read more</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>

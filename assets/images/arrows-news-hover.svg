@@ -1,0 +1,9 @@
+<svg id="arrows-news" xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 45 45">
+  <g id="Group_15950" data-name="Group 15950" transform="translate(45.235 44.764) rotate(180)">
+    <g id="Ellipse_111" data-name="Ellipse 111" transform="translate(45.235 44.764) rotate(180)" fill="#01bdd6" stroke="#01bdd6" stroke-width="1">
+      <circle cx="22.5" cy="22.5" r="22.5" stroke="none"/>
+      <circle cx="22.5" cy="22.5" r="22" fill="none"/>
+    </g>
+    <path id="Path_47452" data-name="Path 47452" d="M7.575,13.6l1.205,1.205,7.4-7.4L8.781,0,7.575,1.205l5.337,5.337H0V8.264H12.913Z" transform="translate(14.893 14.979)" fill="#fff"/>
+  </g>
+</svg>

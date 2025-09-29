@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="194" height="65" viewBox="0 0 194 65">
+  <defs>
+    <linearGradient id="linear-gradient" x1="1.179" y1="-0.248" x2="0.064" y2="0.954" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#9bc622"/>
+      <stop offset="1" stop-color="#01bdd6"/>
+    </linearGradient>
+  </defs>
+  <g id="Group_16002" data-name="Group 16002" transform="translate(-64 -584)">
+    <path id="Rectangle_3878" data-name="Rectangle 3878" d="M10,0H190a0,0,0,0,1,0,0V19a40,40,0,0,1-40,40H0a0,0,0,0,1,0,0V10A10,10,0,0,1,10,0Z" transform="translate(64 584)" fill="url(#linear-gradient)"/>
+    <circle id="Ellipse_92" data-name="Ellipse 92" cx="3.5" cy="3.5" r="3.5" transform="translate(235 609)" fill="rgba(255,255,255,0.32)"/>
+    <circle id="Ellipse_129" data-name="Ellipse 129" cx="3.5" cy="3.5" r="3.5" transform="translate(251 589)" fill="rgba(255,255,255,0.32)"/>
+    <circle id="Ellipse_124" data-name="Ellipse 124" cx="6" cy="6" r="6" transform="translate(235 626)" fill="rgba(255,255,255,0.32)"/>
+    <circle id="Ellipse_126" data-name="Ellipse 126" cx="6.5" cy="6.5" r="6.5" transform="translate(79 636)" fill="rgba(255,255,255,0.32)"/>
+    <circle id="Ellipse_127" data-name="Ellipse 127" cx="5.5" cy="5.5" r="5.5" transform="translate(168 638)" fill="rgba(255,255,255,0.32)"/>
+    <circle id="Ellipse_128" data-name="Ellipse 128" cx="4" cy="4" r="4" transform="translate(118 632)" fill="rgba(255,255,255,0.32)"/>
+  </g>
+</svg>
