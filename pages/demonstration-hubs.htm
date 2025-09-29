@@ -39,7 +39,7 @@ function onStart(){
     </div>
 </div>
     {% for k, partner in partners %}
-    <div class="container-fluid data_container" id="{{partner.instituion|slug}}" style="background: url({{partner.cover.path}}) bottom right no-repeat;">
+    <div class="container-fluid data_container" id="{{partner.instituion|slug}}" style="background: url({{partner.cover.path}}) bottom right no-repeat; background-size: 37% 100%;">
         <div class="container">
             <div class="partner_description">{{partner.content|raw}}</div>
         </div>

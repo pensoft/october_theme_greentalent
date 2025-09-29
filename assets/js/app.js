@@ -248,7 +248,7 @@ $(document).ready(function () {
         });
 
         if(activeTab.length){
-            $content.slideDown(speed);
+            $content.fadeIn(speed);
             //scroll to element
             $('html, body').animate({
                 scrollTop:  activeTab.offset().top - $('header').height()
@@ -258,7 +258,7 @@ $(document).ready(function () {
         // Bind the click event handler
         $(this).find("a").click(function (e) {
             if($(this).hasClass('active')) {
-                $content.slideDown({
+                $content.fadeIn({
                     scrollTop: $content.offset().top - $('header').height()
                 }, speed);
                 var screenSize = getScreenSize();
@@ -288,7 +288,7 @@ $(document).ready(function () {
 
             // Make the tab active.
             $active.addClass('active');
-            $content.slideDown({
+            $content.fadeIn({
                 scrollTop: $content.offset().top - $('header').height()
             }, speed);
 

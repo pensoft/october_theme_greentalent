@@ -77,6 +77,11 @@
         position: relative;
         z-index: 2;
 
+        p{
+            color: @green-color !important;
+            opacity: 1!important;
+        }
+
         .breakpoint-large-down({
             background: @dark-color;
             padding: 20px;
@@ -184,7 +189,7 @@
             border-radius: 65px;
             border: 1px solid rgba(24, 45, 16, 0.45);
             color: @primary-color;
-            text-align: center;
+            text-align: left;
             font-family: Parkinsans;
             font-size: 18px;
             font-style: normal;
@@ -531,6 +536,9 @@
     h1, h2{
         margin-bottom: 80px!important;
     }
+    .container{
+        padding: 0;
+    }
     .tabs {
         display: flex;
         flex-direction: column;
@@ -545,6 +553,10 @@
             transition: all 0.3s ease-in-out;
             margin-bottom: 25px;
 
+            .breakpoint-large-down({
+                font-size: 22px;
+            });
+
             &:after{
                 position: absolute;
                 background: url("../../assets/images/arrow-sm-right.svg") right center no-repeat;
@@ -556,6 +568,9 @@
                 margin-left: 6px;
                 margin-top: 14px;
                 transition: all 0.3s ease-in-out;
+                .breakpoint-large-down({
+                    margin-top: 0;
+                });
             }
 
 
@@ -566,6 +581,9 @@
                     background-size: contain;
                     transform: rotate(45deg);
                     margin-top: 11px;
+                    .breakpoint-large-down({
+                        margin-top: 0;
+                    });
                 }
             }
         }
@@ -578,11 +596,19 @@
         font-style: normal;
         font-weight: 400;
         line-height: 145%; /* 58px */
+        .breakpoint-large-down({
+            font-size: 30px;
+        });
     }
 }
 
 
 .supporting{
+
+    .container{
+        padding: 0;
+    }
+
     h1, h2{
         text-align: center;
         margin-bottom: 80px!important;
@@ -642,7 +668,7 @@
                     content: '';
                     width: 60px;
                     height: 60px;
-                    background: url("../../assets/images/obj1.png") center no-repeat;
+                    background: url("../../assets/images/obj1.svg") center no-repeat;
                     background-size: auto;
                 }
             }
@@ -715,10 +741,46 @@
         width: 80%;
         margin: 0 auto 80px auto!important;
     }
+
+
+}
+
+.trainings {
+    img{
+        width: 75% !important;
+        margin: 40px auto!important;
+        justify-self: center;
+        display: flex;
+        .breakpoint-large-down({
+            width: 100% !important;
+            margin: 0!important;
+        });
+    }
+}
+
+.modules {
+
+    padding: 0;
+
+    .container{
+        padding: 0;
+    }
+
+    img{
+        width: 57% !important;
+        margin: 40px auto!important;
+        justify-self: center;
+        display: flex;
+        .breakpoint-large-down({
+            width: 100% !important;
+            margin: 0!important;
+        });
+    }
 }
 
 
 .demonstration-hubs{
+
     .tabs {
         display: flex;
         .breakpoint-large-down({

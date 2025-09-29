@@ -4,10 +4,6 @@
         align-items: center;
         justify-content: center;
     }
-}
-
-.profile-item{
-    width: 100%;
 
     .coordinator_info{
         display: flex;
@@ -17,20 +13,28 @@
         font-size: 18px!important;
         font-weight: 400!important;
         width: 100%;
+        .breakpoint-large-down({
+            margin-bottom: 40px;
+        });
+
 
         h3{
             font-family: Parkinsans;
-            font-size: 32px;
+            font-size: 32px!important;
             font-style: normal;
-            font-weight: 500;
+            font-weight: 500!important;
             line-height: 145%; /* 46.4px */
             color: @heading-text-color;
+            .breakpoint-large-down({
+                margin-top: 20px;
+            });
         }
 
     }
 
+
     a.mail{
-        width: 100%;
+        width: fit-content;
         margin-top: 20px;
         margin-bottom: 20px;
         display: flex;
@@ -38,6 +42,13 @@
         justify-content: center;
         color: #1F5EFB;
     }
+
+}
+
+.profile-item{
+    width: 100%;
+
+
 
     .coordinator_image{
         border-radius: 35px;
