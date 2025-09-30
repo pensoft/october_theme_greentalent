@@ -306,8 +306,8 @@ $(document).ready(function () {
             autoplaySpeed: 1000,
             centerMode: true,
             centerPadding: '50px',
-            slidesToShow: 4,
-            slidesToScroll: 1,
+            slidesToShow: 6,
+            slidesToScroll: 2,
             focusOnSelect: false,
             dots: false,
             infinite: true,
@@ -318,7 +318,7 @@ $(document).ready(function () {
                         arrows: false,
                         dots: true,
                         centerMode: false,
-                        centerPadding: '2%',
+                        centerPadding: '2px',
                         slidesToShow: 1
                     }
                 }
