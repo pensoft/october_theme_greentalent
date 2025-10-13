@@ -1,6 +1,6 @@
 url = "/demonstration-hubs"
 layout = "default"
-title = "Demonstration Hubs"
+title = "Demonstration hubs"
 
 [siteSearchInclude]
 
@@ -23,7 +23,6 @@ use Pensoft\Partners\Models\Partners;
 function onStart(){
 	$this['partners'] =  Partners::where('type', 2)->get();
 }
-
 ?>
 ==
 {% component 'siteSearchInclude' %}
