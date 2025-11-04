@@ -458,7 +458,7 @@ a:hover .arrow-left{
         border-radius: 10px;
         background-repeat: no-repeat !important;
         background-position: center !important;
-        background-size: 50px !important;
+        background-size: contain !important;
         transition: all ease-in-out 0.3s;
         position: relative;
         right: 20px;
@@ -474,18 +474,18 @@ a:hover .arrow-left{
         }
     }
 
-    &:before{
-        content: ' ';
-        position: absolute;
-        display: block;
-        left: 41px;
-        background: transparent linear-gradient(219deg, #004D74 0%, #AFCD87 100%) 0% 0% no-repeat padding-box;
-        clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); // Creates the hexagon shape
-        border-radius: 10px;
-        width: 128px;
-        height: 146px;
-        z-index: 1;
-    }
+    // &:before{
+    //     content: ' ';
+    //     position: absolute;
+    //     display: block;
+    //     left: 41px;
+    //     background: transparent linear-gradient(219deg, #004D74 0%, #AFCD87 100%) 0% 0% no-repeat padding-box;
+    //     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); // Creates the hexagon shape
+    //     border-radius: 10px;
+    //     width: 128px;
+    //     height: 146px;
+    //     z-index: 1;
+    // }
 
     .breakpoint-large-down({
         flex-basis: 100%;

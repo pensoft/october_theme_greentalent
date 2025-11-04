@@ -126,7 +126,7 @@ $(document).ready(function () {
 
 
     $('<div class="col-xs-12 col-sm-3 card internal no-border" style="margin-bottom: 15px">\n' +
-        '<a class="folder-background" style="display:flex; background: url(/storage/app/media/Reporting-forms.svg) center center no-repeat; background-size: 100px; height: 200px" href="/internal-repository/forms" title="Dissemination report forms"></a>\n' +
+        '<a class="folder-background" style="display:flex; background: url(/storage/app/media/Reporting-forms.svg) center center no-repeat; background-size: 100px; height: 200px" href="https://docs.google.com/spreadsheets/d/1BtdFe6vJylPLYbAHYouQ1hG0jK5GF4TngCb3w9iZEc4/edit?gid=0#gid=0" target="_blank" title="Dissemination report forms"></a>\n' +
         '<h3 class="card-header"><a href="/internal-repository/forms" title="Reporting forms">Reporting forms</a></h3>\n' +
         '</div>').insertAfter($('.card.internal').last());
 
