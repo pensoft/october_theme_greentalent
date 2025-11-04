@@ -27,22 +27,37 @@ function onStart(){
 ==
 {% component 'siteSearchInclude' %}
 {% component 'aim' %}
-<div class="container">
-    <h2>Locations</h2>
-    <div class="tabs">
-        {% for k, partner in partners %}
-        <a role="article" tabindex="0" href="#{{partner.instituion|slug}}">
-            <span class="partner_title">{{partner.instituion}}</span>
-        </a>
-        {% endfor %}
+<section aria-labelledby="locations-heading">
+    <div class="container">
+        <h1 id="locations-heading">Locations</h1>
+        <nav aria-label="Partner locations" class="tabs">
+            <div role="tablist">
+                {% for k, partner in partners %}
+                <a href="#{{partner.instituion|slug}}"
+                   role="tab"
+                   aria-controls="{{partner.instituion|slug}}"
+                   class="partner_tab">
+                    <span class="partner_title">{{partner.instituion}}</span>
+                </a>
+                {% endfor %}
+            </div>
+        </nav>
     </div>
-</div>
+
     {% for k, partner in partners %}
-    <div class="container-fluid data_container" id="{{partner.instituion|slug}}" style="background: url({{partner.cover.path}}) bottom right no-repeat; background-size: 30% 100%;">
+    <article
+        class="container-fluid data_container"
+        id="{{partner.instituion|slug}}"
+        role="tabpanel"
+        aria-labelledby="partner-heading-{{k}}"
+        style="background: url({{partner.cover.path}}) bottom right no-repeat; background-size: 30% 100%;">
         <div class="container">
+            <h2 id="partner-heading-{{k}}" class="sr-only">{{partner.instituion}}</h2>
             <div class="partner_description">{{partner.content|raw}}</div>
         </div>
-    </div>
+        <div class="sr-only" role="img" aria-label="{{partner.instituion}} background image"></div>
+    </article>
     {% endfor %}
+</section>
 
 {% component 'countries' %}

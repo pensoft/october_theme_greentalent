@@ -238,16 +238,11 @@ $(document).ready(function () {
             $active.addClass('active');
         }
 
-        if($(this).parent().parent().hasClass('events')){
+
+        if($(this).parent().parent().parent().parent().parent().hasClass('objectives')){
             $active.addClass('active');
         }
-        if($(this).parent().hasClass('partners')){
-            $active.addClass('active');
-        }
-        if($(this).parent().parent().hasClass('objectives')){
-            $active.addClass('active');
-        }
-        if($(this).parent().parent().hasClass('demonstration-hubs')){
+        if($(this).parent().parent().parent().hasClass('demonstration-hubs')){
             $active.addClass('active');
         }
 

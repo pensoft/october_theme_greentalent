@@ -63,83 +63,122 @@ return Response::download($pathToFile, $fileName, $headers);
 }
 ?>
 ==
-<div class="container media-logo-container">
-    {% partial 'components/media-nav' active_tab='brand-kit' %}
+<section aria-labelledby="brand-kit-heading">
+    <div class="container media-logo-container">
+        <h1 id="brand-kit-heading" class="sr-only">Brand Kit</h1>
 
+        {% partial 'components/media-nav' active_tab='brand-kit' %}
 
-    {% set records = mediaLogosList %}
-    {% set displayColumn = mediaLogosList.displayColumn %}
-    {% set noRecordsMessage = mediaLogosList.noRecordsMessage %}
-    {% set detailsPage = mediaLogosList.detailsPage %}
-    {% set detailsKeyColumn = mediaLogosList.detailsKeyColumn %}
-    {% set detailsUrlParameter = mediaLogosList.detailsUrlParameter %}
+        {% set records = mediaLogosList %}
+        {% set displayColumn = mediaLogosList.displayColumn %}
+        {% set noRecordsMessage = mediaLogosList.noRecordsMessage %}
+        {% set detailsPage = mediaLogosList.detailsPage %}
+        {% set detailsKeyColumn = mediaLogosList.detailsKeyColumn %}
+        {% set detailsUrlParameter = mediaLogosList.detailsUrlParameter %}
 
-    {% if records.count() %}
-    <div class="row">
-        {% for record in records %}
-        {% spaceless %}
-        {% if record.logo_image %}
+        {% if records.count() %}
+        <div class="row">
+            {% for record in records %}
+            {% spaceless %}
+            {% if record.logo_image %}
 
-        <div class="col-md-4 col-xs-12 mb-4">
-            <div class="logo-container {{record.name}}">
-                <img src="{{record.logo_image.path}}" title="{{record.name}}">
+            <article class="col-md-4 col-xs-12 mb-4">
+                <div class="logo-container {{record.name}}">
+                    <img src="{{record.logo_image.path}}" alt="{{record.name}} preview">
+                </div>
+                <h2 class="text-center">{{record.name}}</h2>
+
+                <div class="links">
+                    {% if record.file_jpg %}
+                    <div class="button_su">
+                        {{form_open({ request: 'onDownloadFile' }) }}
+                        <input type="hidden" value="{{record.file_jpg.id}}" name="id">
+                        <button type="submit"
+                                data-attach-loading
+                                class="btn btn-primary dwn-btn"
+                                aria-label="Download {{record.name}} as JPG">
+                            <span class="button_text_container">
+                                <i class="pr normal p-download" aria-hidden="true"></i>JPG
+                            </span>
+                        </button>
+                        {{ form_close() }}
+                    </div>
+                    {% endif %}
+
+                    {% if record.file_png %}
+                    <div class="button_su">
+                        {{form_open({ request: 'onDownloadFile' }) }}
+                        <input type="hidden" value="{{record.file_png.id}}" name="id">
+                        <button type="submit"
+                                data-attach-loading
+                                class="btn btn-primary dwn-btn"
+                                aria-label="Download {{record.name}} as PNG">
+                            <span class="button_text_container">
+                                <i class="pr normal p-download" aria-hidden="true"></i>PNG
+                            </span>
+                        </button>
+                        {{ form_close() }}
+                    </div>
+                    {% endif %}
+
+                    {% if record.file_eps %}
+                    <div class="button_su">
+                        {{form_open({ request: 'onDownloadFile' }) }}
+                        <input type="hidden" value="{{record.file_eps.id}}" name="id">
+                        <button type="submit"
+                                data-attach-loading
+                                class="btn btn-primary dwn-btn"
+                                aria-label="Download {{record.name}} as SVG">
+                            <span class="button_text_container">
+                                <i class="pr normal p-download" aria-hidden="true"></i>SVG
+                            </span>
+                        </button>
+                        {{ form_close() }}
+                    </div>
+                    {% endif %}
+
+                    {% if record.file_pdf %}
+                    <div class="button_su">
+                        <a class="btn btn-primary dwn-btn"
+                           href="{{record.file_pdf.path}}"
+                           download
+                           aria-label="Download {{record.name}} as PDF">
+                            <span class="button_text_container">
+                                <i class="pr normal p-download" aria-hidden="true"></i>PDF
+                            </span>
+                        </a>
+                    </div>
+                    {% endif %}
+
+                    {% if record.file_zip %}
+                    <div class="button_su">
+                        <a class="btn btn-primary dwn-btn"
+                           href="{{record.file_zip.path}}"
+                           download
+                           aria-label="Download {{record.name}} as ZIP">
+                            <span class="button_text_container">
+                                <i class="pr normal p-download" aria-hidden="true"></i>ZIP
+                            </span>
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </article>
+
+            {% endif %}
+            {% endspaceless %}
+            {% else %}
+            <div class="col-xs-12">
+                <p>{{ noRecordsMessage ?: 'No brand kit items available at this time.' }}</p>
             </div>
-            <h2 align="center">{{record.name}}</h2>
-
-            <div class="links">
-                {% if record.file_jpg %}
-                <div class="button_su">
-                    {{form_open({ request: 'onDownloadFile' }) }}
-                    <input type="hidden" value="{{record.file_jpg.id}}" name="id">
-
-                    <button type="submit" data-attach-loading class="btn btn-primary dwn-btn"><span class="button_text_container"><i class="pr normal p-download"></i>JPG</span></button>
-                    {{ form_close() }}
-                </div>
-                {% endif %}
-
-                {% if record.file_png %}
-                <div class="button_su">
-                    {{form_open({ request: 'onDownloadFile' }) }}
-                    <input type="hidden" value="{{record.file_png.id}}" name="id">
-
-                    <button type="submit" data-attach-loading class="btn btn-primary dwn-btn"><span class="button_text_container"><i class="pr normal p-download"></i>PNG</span></button>
-                    {{ form_close() }}
-                </div>
-                {% endif %}
-
-                {% if record.file_eps %}
-                <div class="button_su">
-                    {{form_open({ request: 'onDownloadFile' }) }}
-                    <input type="hidden" value="{{record.file_eps.id}}" name="id">
-
-                    <button type="submit" data-attach-loading class="btn btn-primary dwn-btn"><span class="button_text_container"><i class="pr normal p-download"></i>SVG</span></button>
-                    {{ form_close() }}
-                </div>
-                {% endif %}
-
-
-                {% if record.file_pdf %}
-                <div class="button_su">
-                    <a class="btn btn-primary dwn-btn" href="{{record.file_pdf.path}}" target="_blank"><span class="button_text_container"><i class="pr normal p-download"></i>PDF</span></a>
-                </div>
-                {% endif %}
-
-                {% if record.file_zip %}
-                <div class="button_su">
-
-                    <a class="btn btn-primary dwn-btn" href="{{record.file_zip.path}}" target="_blank"><span class="button_text_container"><i class="pr normal p-download"></i>ZIP</span></a>
-                </div>
-                {% endif %}
-
-
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="col-xs-12">
+                <p>No brand kit items available at this time.</p>
             </div>
         </div>
         {% endif %}
-
-        {% endspaceless %}
-        {% else %}
-        {{ noRecordsMessage }}
-        {% endfor %}
     </div>
-    {% endif %}
-</div>
+</section>

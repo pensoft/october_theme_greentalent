@@ -62,53 +62,69 @@ return Response::download($pathToFile, $fileName, $headers);
 }
 ?>
 ==
-<div class="container">
-    {% partial 'components/media-nav' active_tab='newsletters' %}
+<section aria-labelledby="newsletters-heading">
+    <div class="container">
+        <h1 id="newsletters-heading" class="sr-only">Newsletters</h1>
 
-    {% set records = mediaNewslettersList %}
-    {% set displayColumn = mediaNewslettersList.displayColumn %}
-    {% set noRecordsMessage = mediaNewslettersList.noRecordsMessage %}
-    {% set detailsPage = mediaNewslettersList.detailsPage %}
-    {% set detailsKeyColumn = mediaNewslettersList.detailsKeyColumn %}
-    {% set detailsUrlParameter = mediaNewslettersList.detailsUrlParameter %}
+        {% partial 'components/media-nav' active_tab='newsletters' %}
 
-    {% if records.count() %}
-    <div class="row full-row">
-        {% for record in records %}
-        {% spaceless %}
+        {% set records = mediaNewslettersList %}
+        {% set displayColumn = mediaNewslettersList.displayColumn %}
+        {% set noRecordsMessage = mediaNewslettersList.noRecordsMessage %}
+        {% set detailsPage = mediaNewslettersList.detailsPage %}
+        {% set detailsKeyColumn = mediaNewslettersList.detailsKeyColumn %}
+        {% set detailsUrlParameter = mediaNewslettersList.detailsUrlParameter %}
 
-        <div class="col-md-4 col-xs-12 mb-4 newsletter">
-            <div class="flyer-container {{record.name}}">
-                <img src="{{record.newsletter_image.path}}" title="{{record.name}}">
-            </div>
-            <h2 align="center">{{record.name}}</h2>
-
-            <div class="links">
-                {% if record.url %}
-                <div class="button_su">
-                    <span class="su_button_circle desplode-circle"></span>
-                    <a class="btn btn-primary  dwn-btn" href="{{record.url}}" target="_blank"><span class="button_text_container">Read the newsletter</span></a>
+        {% if records.count() %}
+        <div class="row full-row">
+            {% for record in records %}
+            {% spaceless %}
+            <article class="col-md-4 col-xs-12 mb-4 newsletter">
+                <div class="flyer-container {{record.name}}">
+                    <img src="{{record.newsletter_image.path}}" alt="{{record.name}} newsletter cover">
                 </div>
-                {% endif %}
+                <h2 class="text-center">{{record.name}}</h2>
 
-                &nbsp;
+                <div class="links">
+                    {% if record.url %}
+                    <div class="button_su">
+                        <span class="su_button_circle desplode-circle" aria-hidden="true"></span>
+                        <a class="btn btn-primary dwn-btn"
+                           href="{{record.url}}"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           aria-label="Read {{record.name}} newsletter (opens in new window)">
+                            <span class="button_text_container">Read the newsletter</span>
+                        </a>
+                    </div>
+                    {% endif %}
 
-                {% if record.file %}
-                <div class="button_su">
-                    {{form_open({ request: 'onDownloadFile' }) }}
-                    <input type="hidden" value="{{record.file.id}}" name="id">
-                    <button type="submit" data-attach-loading class="btn btn-primary  dwn-btn"><span class="button_text_container"><i class="pr normal p-download"></i>Download</span></button>
-                    {{ form_close() }}
+                    {% if record.file %}
+                    <div class="button_su">
+                        {{form_open({ request: 'onDownloadFile' }) }}
+                        <input type="hidden" value="{{record.file.id}}" name="id">
+                        <button type="submit"
+                                data-attach-loading
+                                class="btn btn-primary dwn-btn"
+                                aria-label="Download {{record.name}} newsletter">
+                            <span class="button_text_container">
+                                <i class="pr normal p-download" aria-hidden="true"></i>Download
+                            </span>
+                        </button>
+                        {{ form_close() }}
+                    </div>
+                    {% endif %}
                 </div>
-                {% endif %}
+            </article>
+            {% endspaceless %}
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="col-xs-12">
+                <p class="no-records">{{ noRecordsMessage ?: 'Items will follow soon. Keep posted!' }}</p>
             </div>
         </div>
-
-
-        {% endspaceless %}
-        {% endfor %}
+        {% endif %}
     </div>
-    {% else %}
-    <div class="no-records">Items will follow soon. Keep posted!</div>
-    {% endif %}
-</div>
+</section>

@@ -286,6 +286,17 @@ ul.pagination{
         width: 100vw;
         height: 422px;
         object-fit: cover;
+        &:after{
+            background: linear-gradient(180deg, rgba(51, 112, 86, 0.5) 0%, rgba(56, 114, 88, 0.7) 100%);
+            opacity: 0.9;
+            content: '';
+            width: 100%;
+            height: 100% !important;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
     }
 }
 
@@ -296,8 +307,9 @@ ul.pagination{
         position: absolute;
         color: white;
         top: 40%;
+        z-index: 2;
         .breakpoint-large-down({
-            top: 5%;
+            top: 10%;
         });
         h1{
             color: #FEFFFD;
@@ -307,7 +319,26 @@ ul.pagination{
             font-weight: 400;
             line-height: 145%; /* 79.75px */
             .breakpoint-large-down({
-                font-size: 45px;
+                font-size: 43px;
+                line-height: 135%; /* 79.75px */
+            });
+        }
+    }
+
+    .carousel-slide{
+        position: relative;
+        &:after{
+            background: linear-gradient(180deg, rgba(24, 45, 16, 0.5) 0%, rgba(24, 45, 16, 0) 100%);
+            //opacity: 0.9;
+            content: '';
+            width: 100%;
+            height: 98.7% !important;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            .breakpoint-large-down({
+                background: linear-gradient(180deg, rgba(24, 45, 16, 0.9) 0%, rgba(24, 45, 16, 0.5) 100%);
             });
         }
     }
@@ -317,6 +348,7 @@ ul.pagination{
         height: 100vh;
         object-fit: cover;
         object-position: bottom right;
+
     }
 }
 
