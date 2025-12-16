@@ -52,8 +52,8 @@ $(document).ready(function () {
 
 
     $('.malta .label1').text('95% urban population');
-    $('.malta .label2').text('Tourism-driven rconomy');
-    $('.malta .label3').text('Highly-urbanised landscpae');
+    $('.malta .label2').text('Tourism-driven economy');
+    $('.malta .label3').text('Highly-urbanised landscape');
     $('.greece .label1').text('Diverse geography');
     $('.greece .label2').text('Growing urbanisation');
     $('.greece .label3').text('Strong tourism and agriculture');
