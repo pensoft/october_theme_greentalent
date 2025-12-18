@@ -1,0 +1,491 @@
+// Demonstration Hubs Page Styles
+// Generic hub styles (reusable across all hub pages)
+
+.demonstration-hubs{
+
+    .jumbotron-item{
+        padding: 0;
+        margin: 0;
+    }
+
+    // Hub-specific plant images
+    &.malta-hub .hub-partners::after {
+        background-image: url('../../assets/images/malta-plant.png');
+    }
+
+    &.cyprus-hub .hub-partners::after {
+        background-image: url('../../assets/images/cyprus-plant.png');
+    }
+
+    &.greece-hub .hub-partners::after {
+        background-image: url('../../assets/images/greece-plant.png');
+    }
+
+    &.bulgaria-hub .hub-partners::after {
+        background-image: url('../../assets/images/bulgaria-plant.png');
+    }
+}
+// Intro Section
+.hub-intro {
+    // padding: 75px 0 50px;
+    text-align: center;
+
+    .container {
+        max-width: 1270px;
+    }
+
+    .intro-heading {
+        text-align: center;
+        font-family: 'Parkinsans', sans-serif;
+        font-weight: 500;
+        font-size: 40px;
+        line-height: 1.45;
+        color: @text-color-default;
+        margin: 0;
+
+        .highlight {
+            color: @dark-green-color;
+        }
+
+        .breakpoint-large-down({
+            font-size: 32px;
+        });
+
+        .breakpoint-medium-down({
+            font-size: 26px;
+        });
+    }
+}
+
+// General section styles
+.hub-section {
+    padding: 25px 0;
+    position: relative;
+
+    .container {
+        max-width: 1270px;
+    }
+
+    .row {
+        display: flex;
+        gap: 26px;
+        margin: 0;
+
+        > [class*="col-"] {
+            padding: 0;
+            flex: 1;
+        }
+    }
+
+    // Image column stays fixed width
+    .col-md-4 {
+        flex: 0 0 auto;
+    }
+
+    .breakpoint-large-down({
+        .row {
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .col-md-4 {
+            flex: 1;
+        }
+    });
+}
+
+// Content Cards
+.content-card {
+    padding: 55px;
+    .rounded(35px);
+    height: 100%;
+
+    &.blue {
+        background-color: #eaf0ff;
+        border-radius: 0 35px 35px 0;
+
+        .breakpoint-large-down({
+            border-radius: 35px;
+        });
+    }
+
+    &.green {
+        background-color: @secondary-color-green;
+        border-radius: 35px 0 0 35px;
+
+        .breakpoint-large-down({
+            border-radius: 35px;
+        });
+    }
+
+    h3 {
+        font-family: 'Parkinsans', sans-serif;
+        font-weight: 500;
+        font-size: 40px;
+        line-height: 1.45;
+        color: @text-color-default;
+        margin: 0 0 30px;
+
+        .breakpoint-large-down({
+            font-size: 32px;
+        });
+
+        .breakpoint-medium-down({
+            font-size: 26px;
+            margin-bottom: 20px;
+        });
+    }
+
+    p {
+        font-family: 'Fustat', 'Noto Sans', sans-serif;
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 1.55;
+        color: @text-color-default;
+        margin: 0;
+
+        .breakpoint-large-down({
+            font-size: 18px;
+        });
+
+        .breakpoint-medium-down({
+            font-size: 16px;
+        });
+    }
+
+    .breakpoint-large-down({
+        padding: 40px;
+    });
+
+    .breakpoint-medium-down({
+        padding: 25px;
+        margin-bottom: 20px;
+    });
+}
+
+// Image Cards
+.image-card {
+    .rounded(35px);
+    overflow: hidden;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .breakpoint-medium-down({
+        margin-bottom: 20px;
+    });
+}
+
+// Section-specific image sizes
+.hub-about .image-card {
+    width: 301px;
+    height: 319px;
+
+    .breakpoint-large-down({
+        width: 100%;
+        height: 300px;
+    });
+}
+
+.hub-why .image-card {
+    width: 301px;
+    height: 319px;
+
+    .breakpoint-large-down({
+        width: 100%;
+        height: 300px;
+    });
+}
+
+.hub-what .image-card {
+    width: 301px;
+    height: 408px;
+
+    .breakpoint-large-down({
+        width: 100%;
+        height: 350px;
+    });
+}
+
+// Why Section - reversed layout on mobile
+.hub-why {
+    .image-col {
+        display: flex;
+        justify-content: flex-end;
+    }
+    .row {
+        .breakpoint-large-down({
+            flex-direction: column-reverse;
+        });
+    }
+}
+
+// What Section
+.hub-what {
+    .content-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .breakpoint-medium-down({
+            min-height: auto;
+        });
+    }
+}
+
+// Outcomes Section
+.hub-outcomes {
+    padding: 50px 0;
+
+    .outcomes-card {
+        background: linear-gradient(135deg, #eaf0ff 0%, #e4f6cd 100%);
+        .rounded(35px);
+        padding: 70px 109px;
+        text-align: center;
+
+        h3 {
+            font-family: 'Parkinsans', sans-serif;
+            font-weight: 500;
+            font-size: 40px;
+            line-height: 1.45;
+            color: @text-color-default;
+            margin: 0 0 30px;
+
+            .breakpoint-large-down({
+                font-size: 32px;
+            });
+
+            .breakpoint-medium-down({
+                font-size: 26px;
+            });
+        }
+
+        p {
+            font-family: 'Fustat', sans-serif;
+            font-weight: 400;
+            font-size: 40px;
+            line-height: 1.45;
+            color: @text-color-default;
+            margin: 0;
+            max-width: 1051px;
+            margin: 0 auto;
+
+            .breakpoint-large-down({
+                font-size: 28px;
+            });
+
+            .breakpoint-medium-down({
+                font-size: 20px;
+            });
+        }
+
+        .breakpoint-large-down({
+            padding: 50px;
+        });
+
+        .breakpoint-medium-down({
+            padding: 30px 20px;
+        });
+    }
+}
+
+// Partners Section
+.hub-partners {
+    position: relative;
+    padding: 50px 0;
+    overflow: visible;
+
+    .row {
+        > [class*="col-"] {
+            text-align: center;
+        }
+    }
+
+    .partner-box {
+        background-color: #f5f4f4;
+        .rounded(45px);
+        padding: 32px;
+        min-height: 170px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+
+        .breakpoint-medium-down({
+            min-height: 140px;
+            margin-bottom: 10px;
+        });
+    }
+
+    .partner-logo {
+        img {
+            max-width: 100%;
+            max-height: 105px;
+            object-fit: contain;
+        }
+    }
+
+    .partner-text {
+        p {
+            font-family: 'Fustat', sans-serif;
+            font-weight: 400;
+            font-size: 22px;
+            line-height: 1.55;
+            color: @text-color-default;
+            text-align: center;
+            margin: 0;
+
+            .breakpoint-medium-down({
+                font-size: 18px;
+            });
+        }
+    }
+
+    .partner-label {
+        font-family: 'Fustat', sans-serif;
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 1.55;
+        color: @text-color-default;
+        text-align: center;
+        margin: 0;
+
+        .breakpoint-medium-down({
+            font-size: 18px;
+        });
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        right: -8%;
+        bottom: 0;
+        width: 445px;
+        height: 480px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        transform: rotate(-20deg);
+        pointer-events: none;
+
+        .breakpoint-large-down({
+            display: none;
+        });
+    }
+}
+
+// Related Hubs Section
+.hub-related {
+    padding: 50px 0 100px;
+
+    .section-title {
+        font-family: 'Parkinsans', sans-serif;
+        font-weight: 500;
+        font-size: 40px;
+        line-height: 1.45;
+        color: @text-color-default;
+        margin: 0 0 30px;
+
+        .breakpoint-large-down({
+            font-size: 32px;
+        });
+
+        .breakpoint-medium-down({
+            font-size: 26px;
+        });
+    }
+
+    .related-hub-card {
+        display: block;
+        position: relative;
+        .rounded(35px);
+        overflow: hidden;
+        height: 370px;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hub-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 35px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.5));
+        }
+
+        .hub-name {
+            font-family: 'Parkinsans', sans-serif;
+            font-weight: 500;
+            font-size: 40px;
+            line-height: 1;
+            color: #fff;
+
+            .breakpoint-medium-down({
+                font-size: 30px;
+            });
+        }
+
+        .breakpoint-medium-down({
+            height: 250px;
+            margin-bottom: 20px;
+        });
+    }
+
+    .related-hub-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+        gap: 30px;
+
+        .hub-description {
+            font-family: 'Fustat', sans-serif;
+            font-weight: 400;
+            font-size: 40px;
+            line-height: 1.45;
+            color: @text-color-default;
+            margin: 0;
+
+            .breakpoint-large-down({
+                font-size: 28px;
+            });
+
+            .breakpoint-medium-down({
+                font-size: 22px;
+            });
+        }
+
+        .btn-hub {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: @green-color;
+            color: @text-color-default;
+            font-family: 'Fustat', sans-serif;
+            font-weight: 600;
+            font-size: 17px;
+            padding: 12px 25px;
+            .rounded(55px);
+            text-decoration: none;
+            .transition();
+            align-self: flex-start;
+
+            &:hover {
+                background-color: darken(#C3EB91, 10%);
+            }
+        }
+    }
+}
+
+
+.breakpoint-large-down({
+    .hub-related .row {
+        flex-direction: column;
+    }
+});
