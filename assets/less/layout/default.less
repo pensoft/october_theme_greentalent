@@ -32,6 +32,28 @@
     }
 }
 
+.container-flex{
+    max-width: 1440px !important;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 58px;
+    padding-bottom: 58px;
+    
+    @media (max-width: 1900px) and (min-width: 960px) {
+        max-width: calc(100vw - 12rem) !important;
+    }
+}
+
+.container-50 {
+    max-width: 50%;
+    margin-right: auto;
+    margin-left: auto;
+    .breakpoint-large-down({
+        max-width: calc(100vw - 8rem) !important;
+    });
+}
 
 .container1000 {
     max-width: 100%;
