@@ -66,22 +66,6 @@
         max-width: 1270px;
     }
 
-    .row {
-        display: flex;
-        gap: 26px;
-        margin: 0;
-
-        > [class*="col-"] {
-            padding: 0;
-            flex: 1;
-        }
-    }
-
-    // Image column stays fixed width
-    .col-md-4 {
-        flex: 0 0 auto;
-    }
-
     .breakpoint-large-down({
         .row {
             flex-direction: column;
@@ -298,32 +282,91 @@
     padding: 50px 0;
     overflow: visible;
 
-    .row {
-        > [class*="col-"] {
-            text-align: center;
+    .hub-partners-header{
+        color: #182D10;
+        text-align: center;
+        font-family: Fustat;
+        font-size: 22px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 155%;
+        margin-top: 20px !important;
+        margin-bottom: 20px !important;
+    }
+    
+    .hub-leads, .hub-stakeholders{
+        .partner-logo {
+            border-radius: 8px;
+            background: #F5F4F4;
+            padding: 25px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+    }
+
+    .hub-leads{
+        a.partner-logo {
+            min-height: 112px;
+            text-decoration: none;
+            .transition();
+            
+            cursor: pointer !important;
+
+            img {
+                max-width: 50%;
+                max-height: 105px;
+                object-fit: contain;
+                .transition();
+            }
+    
+            &:after{
+                content: "";
+                width: 44px;
+                height: 44px;
+                position: absolute;
+                left: -10px;
+                top: -10px;
+                background-image: url('../../assets/images/link.svg');
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+
+            &:hover {
+                background: #EAEAEA;
+                
+                img {
+                    transform: scale(1.05);
+                }
+            }
         }
     }
 
-    .partner-box {
-        background-color: #f5f4f4;
-        .rounded(45px);
-        padding: 32px;
-        min-height: 170px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 20px;
+    .hub-stakeholders {
+        p{
+            margin-bottom: 0;
+            color: #182D10;
+            text-align: center;
+            font-family: Fustat;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 400;
+        }
 
-        .breakpoint-medium-down({
-            min-height: 140px;
-            margin-bottom: 10px;
-        });
-    }
+        .partner-logo{
+            padding: 20px;
+            min-height: 96px;
+            display: block;
+            .breakpoint-large-down({
+                margin-bottom: 40px;
+            })
+        }
 
-    .partner-logo {
-        img {
+        img{
             max-width: 100%;
-            max-height: 105px;
+            max-height: 69px;
             object-fit: contain;
         }
     }
@@ -363,7 +406,7 @@
         position: absolute;
         right: -8%;
         bottom: 0;
-        width: 445px;
+        width: 405px;
         height: 480px;
         background-size: contain;
         background-repeat: no-repeat;
@@ -489,3 +532,35 @@
         flex-direction: column;
     }
 });
+
+.bulgaria-hub{
+    .hub-why .image-card {
+        position: relative;
+
+        img {
+            display: block;
+        }
+    }
+
+    .image-credit {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        font-family: 'Fustat', 'Noto Sans', sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.4;
+        color: @white-color;
+        margin: 0;
+        padding: 0;
+        text-align: left;
+        z-index: 10;
+
+        .breakpoint-medium-down({
+            font-size: 12px;
+            bottom: 8px;
+            left: 8px;
+        });
+    }
+
+}
