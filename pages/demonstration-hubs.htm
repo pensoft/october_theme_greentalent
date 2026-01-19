@@ -54,6 +54,7 @@ function onStart(){
         <div class="container">
             <h2 id="partner-heading-{{k}}" class="sr-only">{{partner.instituion}}</h2>
             <div class="partner_description">{{partner.content|raw}}</div>
+            <div class="partner_link"><a href="/{{partner.instituion|slug}}" class="btn btn-secondary" alt="Learn more about the {{partner.instituion}} hub">Learn more about the hub</a></div>
         </div>
         <div class="sr-only" role="img" aria-label="{{partner.instituion}} background image"></div>
     </article>
