@@ -222,17 +222,17 @@ $this['related'] = $related;
                         <a href="{{'news'|page}}/{{record.slug}}" aria-label="Read full article: {{ record.title|striptags }}">
                             <img src="{{ record.cover.path }}" alt="Featured image for: {{ record.title|striptags }}">
                         </a>
-                        <div class="news-content news-title">
-                            <time class="news-date" datetime="{{ record.published_at|date('Y-m-d') }}">
-                                {{ record.published_at|date('d F Y')|upper }}
-                            </time>
-                            <div class="title">
-                                <h3 id="news-title-{{loop.index}}">
-                                    <a href="{{'news'|page}}/{{record.slug}}" aria-describedby="news-date-{{loop.index}}">
-                                        {{ record.title|length > 70 ? record.title|striptags|slice(0, 70)|replace({"&nbsp;": " ", ".": ". "}) ~ '...' : record.title|striptags|replace({"&nbsp;": " ", ".": ". "}) }}
-                                    </a>
-                                </h3>
-                            </div>
+                    </div>
+                    <div class="news-content news-title">
+                        <time class="news-date" datetime="{{ record.published_at|date('Y-m-d') }}">
+                            {{ record.published_at|date('d F Y')|upper }}
+                        </time>
+                        <div class="title">
+                            <h3 id="news-title-{{loop.index}}">
+                                <a href="{{'news'|page}}/{{record.slug}}" aria-describedby="news-date-{{loop.index}}">
+                                    {{ record.title|length > 70 ? record.title|striptags|slice(0, 70)|replace({"&nbsp;": " ", ".": ". "}) ~ '...' : record.title|striptags|replace({"&nbsp;": " ", ".": ". "}) }}
+                                </a>
+                            </h3>
                         </div>
                     </div>
                 </article>

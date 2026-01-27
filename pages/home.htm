@@ -140,17 +140,16 @@ function onStart(){
                                  alt="Featured image for article: {{ highlights[0].title|striptags }}"
                                  role="img">
                         </a>
-
-                        <div class="news-content news-title">
-                            <time class="news-date" datetime="{{ highlights[0].published_at|date('Y-m-d') }}" aria-label="Published on {{ highlights[0].published_at|date('d F Y') }}">
-                                {{ highlights[0].published_at|date('d F Y')|upper }}
-                            </time>
-                            <h3 id="featured-article-title" class="title">
-                                <a href="{{'news'|page}}/{{highlights[0].slug}}" aria-describedby="featured-article-date">
-                                    {{ highlights[0].title|length > 70 ? highlights[0].title|striptags|slice(0, 70)|replace({"&nbsp;": " ", ".": ". "}) ~ '...' : highlights[0].title|striptags|replace({"&nbsp;": " ", ".": ". "}) }}
-                                </a>
-                            </h3>
-                        </div>
+                    </div>
+                    <div class="news-content news-title">
+                        <time class="news-date" datetime="{{ highlights[0].published_at|date('Y-m-d') }}" aria-label="Published on {{ highlights[0].published_at|date('d F Y') }}">
+                            {{ highlights[0].published_at|date('d F Y')|upper }}
+                        </time>
+                        <h3 id="featured-article-title" class="title">
+                            <a href="{{'news'|page}}/{{highlights[0].slug}}" aria-describedby="featured-article-date">
+                                {{ highlights[0].title|length > 70 ? highlights[0].title|striptags|slice(0, 70)|replace({"&nbsp;": " ", ".": ". "}) ~ '...' : highlights[0].title|striptags|replace({"&nbsp;": " ", ".": ". "}) }}
+                            </a>
+                        </h3>
                     </div>
                 </article>
                 {% endif %}
@@ -166,17 +165,16 @@ function onStart(){
                                  alt="Image for article: {{ article.title|striptags }}"
                                  role="img">
                         </a>
-
-                        <div class="news-content news-title">
-                            <time class="news-date" datetime="{{ article.published_at|date('Y-m-d') }}" aria-label="Published on {{ article.published_at|date('d F Y') }}">
-                                {{ article.published_at|date('d F Y')|upper }}
-                            </time>
-                            <h4 id="article-title-{{loop.index}}" class="title">
-                                <a href="{{'news'|page}}/{{article.slug}}" aria-describedby="article-date-{{loop.index}}">
-                                    {{ article.title|length > 60 ? article.title|striptags|slice(0, 60)|replace({"&nbsp;": " ", ".": ". "}) ~ '...' : article.title|striptags|replace({"&nbsp;": " ", ".": ". "}) }}
-                                </a>
-                            </h4>
-                        </div>
+                    </div>
+                    <div class="news-content news-title">
+                        <time class="news-date" datetime="{{ article.published_at|date('Y-m-d') }}" aria-label="Published on {{ article.published_at|date('d F Y') }}">
+                            {{ article.published_at|date('d F Y')|upper }}
+                        </time>
+                        <h4 id="article-title-{{loop.index}}" class="title">
+                            <a href="{{'news'|page}}/{{article.slug}}" aria-describedby="article-date-{{loop.index}}">
+                                {{ article.title|length > 60 ? article.title|striptags|slice(0, 60)|replace({"&nbsp;": " ", ".": ". "}) ~ '...' : article.title|striptags|replace({"&nbsp;": " ", ".": ". "}) }}
+                            </a>
+                        </h4>
                     </div>
                 </article>
                 {% endfor %}
