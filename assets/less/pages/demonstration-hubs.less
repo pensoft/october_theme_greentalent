@@ -24,6 +24,26 @@
     &.bulgaria-hub .hub-partners::after {
         background-image: url('../../assets/images/bulgaria-plant.png');
     }
+
+    .btn-hub {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: @green-color;
+        color: @text-color-default;
+        font-family: 'Fustat', sans-serif;
+        font-weight: 600;
+        font-size: 17px;
+        padding: 12px 25px;
+        .rounded(55px);
+        text-decoration: none;
+        .transition();
+        align-self: flex-start;
+
+        &:hover {
+            background-color: darken(#C3EB91, 10%);
+        }
+    }
 }
 // Intro Section
 .hub-intro {
@@ -502,26 +522,6 @@
             .breakpoint-medium-down({
                 font-size: 22px;
             });
-        }
-
-        .btn-hub {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background-color: @green-color;
-            color: @text-color-default;
-            font-family: 'Fustat', sans-serif;
-            font-weight: 600;
-            font-size: 17px;
-            padding: 12px 25px;
-            .rounded(55px);
-            text-decoration: none;
-            .transition();
-            align-self: flex-start;
-
-            &:hover {
-                background-color: darken(#C3EB91, 10%);
-            }
         }
     }
 }
