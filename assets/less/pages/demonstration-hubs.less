@@ -44,6 +44,17 @@
             background-color: darken(#C3EB91, 10%);
         }
     }
+
+    .hub-download .btn-hub::after {
+        content: '';
+        flex-shrink: 0;
+        width: 24px;
+        height: 24px;
+        margin-left: 8px;
+        background-image: url('../../assets/images/download-btn.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
 }
 // Intro Section
 .hub-intro {
@@ -79,7 +90,7 @@
 
 // General section styles
 .hub-section {
-    padding: 25px 0;
+    padding: 30px 0;
     position: relative;
 
     .container {
@@ -242,7 +253,6 @@
 
 // Outcomes Section
 .hub-outcomes {
-    padding: 50px 0;
 
     .outcomes-card {
         background: linear-gradient(135deg, #eaf0ff 0%, #e4f6cd 100%);
@@ -253,17 +263,17 @@
         h3 {
             font-family: 'Parkinsans', sans-serif;
             font-weight: 500;
-            font-size: 40px;
+            font-size: 32px;
             line-height: 1.45;
             color: @text-color-default;
             margin: 0 0 30px;
 
             .breakpoint-large-down({
-                font-size: 32px;
+                font-size: 28px;
             });
 
             .breakpoint-medium-down({
-                font-size: 26px;
+                font-size: 24px;
             });
         }
 
@@ -299,7 +309,6 @@
 // Partners Section
 .hub-partners {
     position: relative;
-    padding: 50px 0;
     overflow: visible;
 
     .hub-partners-header{
@@ -441,7 +450,7 @@
 
 // Related Hubs Section
 .hub-related {
-    padding: 50px 0 100px;
+    padding-bottom: 100px;
 
     .section-title {
         font-family: 'Parkinsans', sans-serif;
