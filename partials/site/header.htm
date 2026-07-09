@@ -52,6 +52,34 @@ numberOfLevels = 2
         {% component 'menu' %}
     </div>
 
+    <div class="search-and-social-media hidden-xs" aria-label="Social media and search">
+        <ul class="navbar-nav" role="list">
+            <li class="nav-item social">
+                <a class="pr p-search middle search-btn" href="#" role="button" onclick="showSearchForm();return false;" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showSearchForm();}" aria-label="Open search" aria-expanded="false" aria-controls="search">
+                    <span class="sr-only">Search</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+
+
+
+    <div id="search" class="search" style="display: none;" role="search" aria-label="Site search">
+        <div class="container">
+            <a class="close-search" href="#" role="button" onclick="hideSearchForm();return false;" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();hideSearchForm();}" aria-label="Close search">
+                <span aria-hidden="true">&#10006;</span>
+            </a>
+            <form class="input-group align-items-start" action="{{ url('search')}}" method="get" aria-label="Search the website">
+                <label for="search-input" class="sr-only">Search</label>
+                <input class="form-control search_input" id="search-input" name="q" type="text" autocomplete="on" placeholder="Search" aria-label="Search query">
+                <button class="btn btn-link pr p-search big text-grey-search-btn" type="submit" aria-label="Submit search">
+                    <span class="sr-only">Search</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
 </nav>
 
 <main id="main-content" role="main">
