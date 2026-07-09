@@ -555,7 +555,7 @@
 /* 1000px, not @breakpoint-large-max-width, to match the hamburger below */
 @media (max-width: 1000px) {
     .userway_buttons_wrapper{
-        right: -70vw !important;
+        right: 70vw !important;
         top: 86px !important;
         /* wrapper box overlaps the brand and the hamburger; let clicks fall through
            to them and keep only the widget's own controls interactive.
@@ -804,8 +804,8 @@
     top: 26px;
 
     .breakpoint-large-down({
-        left: 50%;
-        top: 31px;
+        left: 50%!important;
+        top: 86px!important;
     });
 
     // Hide Google's default UI elements
