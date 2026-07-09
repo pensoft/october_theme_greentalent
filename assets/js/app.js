@@ -39,6 +39,14 @@ $(document).ready(function () {
     // $("nav").removeClass("no-transition");
     /* MENU */
     $('.navbar-nav').attr('id', 'menu'); // please don't remove this line
+
+    // the navbar search trigger is desktop-only; give the slide-out menu its own,
+    // appended last so it sits under the sign-in item
+    $('#menuToggle .navbar-nav').first().append(
+        '<li class="nav-item mobile-search">' +
+        '<a href="#" role="button" onclick="showSearchForm();return false;">Search</a>' +
+        '</li>'
+    );
     $('<div class="calendar-top"></div>').insertBefore("#calendar");
     $('<div class="card-profile-top"></div>').insertBefore(".card.profile.card-profile");
     var divs = $(".card-profiles > div");
