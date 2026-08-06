@@ -313,6 +313,8 @@ $(document).ready(function () {
 
 
 
+    initHomePopup();
+
     // bootstrap 3 responsive multi column slick carousel
     if($('#slick').length){
         $('#slick').slick({
@@ -342,6 +344,48 @@ $(document).ready(function () {
 
 });
 
+
+function initHomePopup() {
+    var $popup = $('#homePopup');
+    if (!$popup.length) return;
+
+    var lastFocused = null;
+
+    function openHomePopup() {
+        lastFocused = document.activeElement;
+        $('body').addClass('home-popup-open');
+        $popup.attr('aria-hidden', 'false');
+        // let the browser paint the hidden state first, so the transition actually runs
+        $popup[0].offsetHeight;
+        $popup.addClass('is-visible');
+        setTimeout(function () {
+            $popup.find('.home-popup-close').focus();
+        }, 500);
+    }
+
+    function closeHomePopup() {
+        if (!$popup.hasClass('is-visible')) return;
+        $popup.removeClass('is-visible').attr('aria-hidden', 'true');
+        $('body').removeClass('home-popup-open');
+        if (lastFocused && lastFocused.focus) {
+            lastFocused.focus();
+        }
+    }
+
+    $popup.on('click', '[data-home-popup-close]', function (e) {
+        e.preventDefault();
+        closeHomePopup();
+    });
+
+    $(document).on('keydown.homePopup', function (e) {
+        if (e.key === 'Escape' || e.keyCode === 27) {
+            closeHomePopup();
+        }
+    });
+
+    // shown on every visit - no dismissal is remembered
+    setTimeout(openHomePopup, 800);
+}
 
 function expandBiography(el){
     $el = $(el) // read-more link

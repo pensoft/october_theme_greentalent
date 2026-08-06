@@ -1,0 +1,33 @@
+<div class="home-popup" id="homePopup" role="dialog" aria-modal="true" aria-labelledby="homePopupTitle" aria-hidden="true">
+    <div class="home-popup-backdrop" data-home-popup-close></div>
+
+    <div class="home-popup-dialog" role="document">
+        <button type="button" class="home-popup-close" data-home-popup-close aria-label="Close">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+                <path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </button>
+
+        <div class="home-popup-media">
+            <img src="{{ 'assets/images/al-nevski.jpg'|theme }}" alt="" aria-hidden="true">
+        </div>
+
+        <div class="home-popup-body">
+            <h2 class="home-popup-title" id="homePopupTitle">
+                <span>Applications</span>
+                <span class="accent">are open!</span>
+            </h2>
+            <p class="home-popup-text">Join us for our first training school in Sofia this December</p>
+
+            <div class="home-popup-actions">
+                <a class="home-popup-cta"
+                   href="https://forms.office.com/Pages/ResponsePage.aspx?id=V_ZK1l8qdUGu_SmcgFIH0cSSTfEjQjFEm33PGgJGdIZUOEZJUU9XMDBPWUhWWlFCSjJVTzRYNkI3Si4u"
+                   target="_blank" rel="noopener noreferrer">Apply here</a>
+
+                <a class="home-popup-link"
+                   href="https://platform.green-talent.eu/events/first-green-talent-training-school"
+                   target="_blank" rel="noopener noreferrer"><span>Read more</span><span class="accent"> here</span></a>
+            </div>
+        </div>
+    </div>
+</div>

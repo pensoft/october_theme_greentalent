@@ -1,0 +1,258 @@
+/* Homepage announcement popup */
+
+.home-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    visibility: hidden;
+    opacity: 0;
+    // delay the visibility flip until the fade-out has finished
+    transition: opacity 0.4s ease, visibility 0s linear 0.4s;
+
+    .home-popup-backdrop {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(24, 45, 16, 0.55);
+    }
+
+    .home-popup-dialog {
+        position: relative;
+        display: flex;
+        align-items: center;
+        //width: 593px;
+        max-width: 100%;
+        max-height: ~"calc(100vh - 40px)";
+        overflow-y: auto;
+        padding: 55px;
+        background: #FFF;
+        .rounded(20px);
+        box-shadow: 0 24px 60px rgba(24, 45, 16, 0.25);
+        opacity: 0;
+        transform: translateY(24px) scale(0.97);
+        transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    &.is-visible {
+        visibility: visible;
+        opacity: 1;
+        transition: opacity 0.4s ease, visibility 0s linear 0s;
+
+        .home-popup-dialog {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    .home-popup-close {
+        position: absolute;
+        top: 55px;
+        right: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        padding: 0;
+        border: none;
+        background: none;
+        color: #182D10;
+        cursor: pointer;
+        z-index: 2;
+        .transition(opacity 0.3s ease);
+
+        &:hover {
+            opacity: 0.6;
+        }
+
+        svg {
+            width: 24px;
+            height: 24px;
+        }
+    }
+
+    .home-popup-media {
+        flex: 0 0 202px;
+        width: 202px;
+        height: 388px;
+        margin-right: 35px;
+        overflow: hidden;
+        .rounded(12px);
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+    }
+
+    // dialog width = 55 padding + 202 image + 35 gap + 246 body + 55 padding
+    .home-popup-body {
+        flex: 0 0 246px;
+        max-width: 246px;
+        min-width: 0;
+    }
+
+    .home-popup-title {
+        max-width: 211px;
+        margin: 0 0 10px;
+        color: #182D10;
+        font-family: Parkinsans;
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.15;
+        text-align: left;
+        word-break: break-word;
+
+        // the design breaks the heading onto two fixed lines
+        span {
+            display: block;
+        }
+
+        .accent {
+            color: #8AC53E;
+        }
+    }
+
+    .home-popup-text {
+        max-width: 205px;
+        margin: 0;
+        color: #798972;
+        font-family: Fustat;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.45;
+        word-break: break-word;
+    }
+
+    // the button is 205 wide but the link below it spans the full 246 column
+    .home-popup-actions {
+        width: 100%;
+        margin-top: 25px;
+    }
+
+    .home-popup-cta {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 205px;
+        max-width: 100%;
+        min-height: 39px;
+        padding: 8px 25px;
+        overflow: hidden;
+        border-radius: 60px;
+        background: #8AC53E;
+        // the global `a` rule sets colour with !important, so match it to win
+        color: #FFF !important;
+        text-align: center;
+        font-family: Fustat;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        letter-spacing: -0.32px;
+        white-space: nowrap;
+
+        .breakpoint-large-down({
+            padding: unset;
+        });
+
+        &:hover {
+            opacity: 0.85;
+        }
+    }
+
+    .home-popup-link {
+        display: block;
+        margin-top: 35px;
+        text-align: left;
+        font-family: Fustat;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 1.45;
+        text-decoration: none;
+        word-break: break-word;
+
+        span {
+            color: #798972;
+        }
+
+        .accent {
+            color: #8AC53E;
+        }
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+
+    .breakpoint-medium-down({
+        padding: 15px;
+
+        .home-popup-dialog {
+            flex-direction: column;
+            align-items: stretch;
+            width: 420px;
+            max-width: 70vw;
+            padding: 55px 20px 55px;
+        }
+
+        .home-popup-close {
+            top: 20px;
+            right: 20px;
+        }
+
+        .home-popup-media {
+            flex: 0 0 auto;
+            width: 100%;
+            height: 180px;
+            margin-right: 0;
+            margin-bottom: 25px;
+        }
+
+        // release the desktop column widths once the dialog stacks
+        .home-popup-body,
+        .home-popup-title,
+        .home-popup-text,
+        .home-popup-cta {
+            max-width: 100%;
+        }
+
+        .home-popup-body {
+            flex: 0 0 auto;
+        }
+
+        .home-popup-actions,
+        .home-popup-cta {
+            width: 100%;
+        }
+    });
+}
+
+body.home-popup-open {
+    overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .home-popup,
+    .home-popup .home-popup-dialog {
+        transition-duration: 0.01ms;
+    }
+
+    .home-popup .home-popup-dialog {
+        transform: none;
+    }
+}
