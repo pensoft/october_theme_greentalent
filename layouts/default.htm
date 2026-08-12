@@ -65,7 +65,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <!-- Matomo -->
 <script>
   var _paq = window._paq = window._paq || [];
-  / tracker methods like "setCustomDimension" should be called before "trackPageView" /
+  // tracker methods like "setCustomDimension" should be called before "trackPageView"
+  // .eps/.svg are not in Matomo's default download extension list
+  _paq.push(['addDownloadExtensions', 'eps|svg']);
   _paq.push(['trackPageView']);
   _paq.push(['enableLinkTracking']);
   (function() {

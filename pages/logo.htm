@@ -91,49 +91,40 @@ return Response::download($pathToFile, $fileName, $headers);
                 <div class="links">
                     {% if record.file_jpg %}
                     <div class="button_su">
-                        {{form_open({ request: 'onDownloadFile' }) }}
-                        <input type="hidden" value="{{record.file_jpg.id}}" name="id">
-                        <button type="submit"
-                                data-attach-loading
-                                class="btn btn-primary dwn-btn"
-                                aria-label="Download {{record.name}} as JPG">
+                        <a class="btn btn-primary dwn-btn"
+                           href="{{record.file_jpg.path}}"
+                           download="{{record.file_jpg.file_name}}"
+                           aria-label="Download {{record.name}} as JPG">
                             <span class="button_text_container">
                                 <i class="pr normal p-download" aria-hidden="true"></i>JPG
                             </span>
-                        </button>
-                        {{ form_close() }}
+                        </a>
                     </div>
                     {% endif %}
 
                     {% if record.file_png %}
                     <div class="button_su">
-                        {{form_open({ request: 'onDownloadFile' }) }}
-                        <input type="hidden" value="{{record.file_png.id}}" name="id">
-                        <button type="submit"
-                                data-attach-loading
-                                class="btn btn-primary dwn-btn"
-                                aria-label="Download {{record.name}} as PNG">
+                        <a class="btn btn-primary dwn-btn"
+                           href="{{record.file_png.path}}"
+                           download="{{record.file_png.file_name}}"
+                           aria-label="Download {{record.name}} as PNG">
                             <span class="button_text_container">
                                 <i class="pr normal p-download" aria-hidden="true"></i>PNG
                             </span>
-                        </button>
-                        {{ form_close() }}
+                        </a>
                     </div>
                     {% endif %}
 
                     {% if record.file_eps %}
                     <div class="button_su">
-                        {{form_open({ request: 'onDownloadFile' }) }}
-                        <input type="hidden" value="{{record.file_eps.id}}" name="id">
-                        <button type="submit"
-                                data-attach-loading
-                                class="btn btn-primary dwn-btn"
-                                aria-label="Download {{record.name}} as SVG">
+                        <a class="btn btn-primary dwn-btn"
+                           href="{{record.file_eps.path}}"
+                           download="{{record.file_eps.file_name}}"
+                           aria-label="Download {{record.name}} as SVG">
                             <span class="button_text_container">
                                 <i class="pr normal p-download" aria-hidden="true"></i>SVG
                             </span>
-                        </button>
-                        {{ form_close() }}
+                        </a>
                     </div>
                     {% endif %}
 
@@ -141,7 +132,7 @@ return Response::download($pathToFile, $fileName, $headers);
                     <div class="button_su">
                         <a class="btn btn-primary dwn-btn"
                            href="{{record.file_pdf.path}}"
-                           download
+                           download="{{record.file_pdf.file_name}}"
                            aria-label="Download {{record.name}} as PDF">
                             <span class="button_text_container">
                                 <i class="pr normal p-download" aria-hidden="true"></i>PDF
@@ -154,7 +145,7 @@ return Response::download($pathToFile, $fileName, $headers);
                     <div class="button_su">
                         <a class="btn btn-primary dwn-btn"
                            href="{{record.file_zip.path}}"
-                           download
+                           download="{{record.file_zip.file_name}}"
                            aria-label="Download {{record.name}} as ZIP">
                             <span class="button_text_container">
                                 <i class="pr normal p-download" aria-hidden="true"></i>ZIP
