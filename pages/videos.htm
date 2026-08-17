@@ -121,19 +121,22 @@ return Response::download($pathToFile, $fileName, $headers);
                             height="267"
                             aria-label="{{record.name|striptags}}">
                             <source src="{{record.file.path}}" type="video/mp4">
-                            <p>Your browser doesn't support HTML5 video. <a href="{{record.file.path}}" download>Download the video</a> instead.</p>
+                            <p>Your browser doesn't support HTML5 video.
+                                {% partial 'components/download-link'
+                                    file=record.file
+                                    class=''
+                                    icon=false
+                                    text='Download the video'
+                                    label='Download ' ~ record.name|striptags ~ ' video' %}
+                                instead.</p>
                         </video>
                         <h2 class="card_title">
                             {{ record.name|length > 65 ? record.name|striptags|slice(0, 65)|replace({"&nbsp;": " ", ".": ". "}) ~ '...' : record.name|striptags|replace({"&nbsp;": " ", ".": ". "}) }}
                         </h2>
-                        <a class="btn btn-primary"
-                           href="{{record.file.path}}"
-                           aria-label="Download {{record.name|striptags}} video"
-                           download="{{record.file.file_name}}">
-                            <span class="button_text_container">
-                                <i class="pr normal p-download" aria-hidden="true"></i>Download
-                            </span>
-                        </a>
+                        {% partial 'components/download-link'
+                            file=record.file
+                            class='btn btn-primary'
+                            label='Download ' ~ record.name|striptags ~ ' video' %}
                     </div>
                 </div>
                 {% endif %}

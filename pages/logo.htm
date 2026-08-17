@@ -91,66 +91,46 @@ return Response::download($pathToFile, $fileName, $headers);
                 <div class="links">
                     {% if record.file_jpg %}
                     <div class="button_su">
-                        <a class="btn btn-primary dwn-btn"
-                           href="{{record.file_jpg.path}}"
-                           download="{{record.file_jpg.file_name}}"
-                           aria-label="Download {{record.name}} as JPG">
-                            <span class="button_text_container">
-                                <i class="pr normal p-download" aria-hidden="true"></i>JPG
-                            </span>
-                        </a>
+                        {% partial 'components/download-link'
+                            file=record.file_jpg
+                            text='JPG'
+                            label='Download ' ~ record.name ~ ' as JPG' %}
                     </div>
                     {% endif %}
 
                     {% if record.file_png %}
                     <div class="button_su">
-                        <a class="btn btn-primary dwn-btn"
-                           href="{{record.file_png.path}}"
-                           download="{{record.file_png.file_name}}"
-                           aria-label="Download {{record.name}} as PNG">
-                            <span class="button_text_container">
-                                <i class="pr normal p-download" aria-hidden="true"></i>PNG
-                            </span>
-                        </a>
+                        {% partial 'components/download-link'
+                            file=record.file_png
+                            text='PNG'
+                            label='Download ' ~ record.name ~ ' as PNG' %}
                     </div>
                     {% endif %}
 
                     {% if record.file_eps %}
                     <div class="button_su">
-                        <a class="btn btn-primary dwn-btn"
-                           href="{{record.file_eps.path}}"
-                           download="{{record.file_eps.file_name}}"
-                           aria-label="Download {{record.name}} as SVG">
-                            <span class="button_text_container">
-                                <i class="pr normal p-download" aria-hidden="true"></i>SVG
-                            </span>
-                        </a>
+                        {% partial 'components/download-link'
+                            file=record.file_eps
+                            text='SVG'
+                            label='Download ' ~ record.name ~ ' as SVG' %}
                     </div>
                     {% endif %}
 
                     {% if record.file_pdf %}
                     <div class="button_su">
-                        <a class="btn btn-primary dwn-btn"
-                           href="{{record.file_pdf.path}}"
-                           download="{{record.file_pdf.file_name}}"
-                           aria-label="Download {{record.name}} as PDF">
-                            <span class="button_text_container">
-                                <i class="pr normal p-download" aria-hidden="true"></i>PDF
-                            </span>
-                        </a>
+                        {% partial 'components/download-link'
+                            file=record.file_pdf
+                            text='PDF'
+                            label='Download ' ~ record.name ~ ' as PDF' %}
                     </div>
                     {% endif %}
 
                     {% if record.file_zip %}
                     <div class="button_su">
-                        <a class="btn btn-primary dwn-btn"
-                           href="{{record.file_zip.path}}"
-                           download="{{record.file_zip.file_name}}"
-                           aria-label="Download {{record.name}} as ZIP">
-                            <span class="button_text_container">
-                                <i class="pr normal p-download" aria-hidden="true"></i>ZIP
-                            </span>
-                        </a>
+                        {% partial 'components/download-link'
+                            file=record.file_zip
+                            text='ZIP'
+                            label='Download ' ~ record.name ~ ' as ZIP' %}
                     </div>
                     {% endif %}
                 </div>

@@ -101,14 +101,9 @@ return Response::download($pathToFile, $fileName, $headers);
 
                     {% if record.file %}
                     <div class="button_su">
-                        <a class="btn btn-primary dwn-btn"
-                           href="{{record.file.path}}"
-                           download="{{record.file.file_name}}"
-                           aria-label="Download {{record.name}} newsletter">
-                            <span class="button_text_container">
-                                <i class="pr normal p-download" aria-hidden="true"></i>Download
-                            </span>
-                        </a>
+                        {% partial 'components/download-link'
+                            file=record.file
+                            label='Download ' ~ record.name ~ ' newsletter' %}
                     </div>
                     {% endif %}
                 </div>

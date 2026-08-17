@@ -1,0 +1,54 @@
+{#
+    Renders a download link that points at pages/media-download.htm instead of the
+    raw storage path, so the original file name is part of the URL and Matomo's
+    Downloads report shows the real file rather than the hashed disk name.
+
+    Parameters:
+        file  - System\Models\File attachment (required, skipped when empty)
+        text  - link text, defaults to "Download"
+        label - aria-label, defaults to "Download <file name>"
+        class - anchor classes, defaults to the media centre download button
+        icon  - false to render the link without the download icon
+#}
+{% if file %}
+{% set file_name = file.file_name ?: 'download' %}
+{#
+    Characters that are unsafe or noisy in a URL segment are folded down first, the
+    rest is percent encoded. Dots survive both steps, so the extension stays intact
+    and Matomo keeps classifying the link as a download.
+#}
+{% set url_name = file_name|replace({
+    ' ': '_',
+    '&': '_',
+    '+': '_',
+    '|': '_',
+    ':': '_',
+    ';': '_',
+    '/': '_',
+    '\\': '_',
+    '%': '',
+    '#': '',
+    '?': '',
+    '*': '',
+    '<': '',
+    '>': '',
+    ',': '',
+    '(': '',
+    ')': '',
+    '"': '',
+    "'": ''
+})|url_encode %}
+{# `??` rather than |default so an explicit empty class or icon=false is honoured. #}
+{% set link_class = class ?? 'btn btn-primary dwn-btn' %}
+{% set link_text = text ?? 'Download' %}
+{% set link_label = label ?? ('Download ' ~ file_name) %}
+{% set show_icon = icon ?? true %}
+<a class="{{ link_class }}"
+   href="{{ url('media-center/download/' ~ file.id ~ '/' ~ url_name) }}"
+   download="{{ file_name }}"
+   aria-label="{{ link_label }}">
+    <span class="button_text_container">
+        {% if show_icon %}<i class="pr normal p-download" aria-hidden="true"></i>{% endif %}{{ link_text }}
+    </span>
+</a>
+{% endif %}
