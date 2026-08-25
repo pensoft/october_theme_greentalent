@@ -11,6 +11,14 @@ escape = 1
 
 [googleTracker]
 ==
+<?php
+function onStart()
+{
+    // Drives the WCAG 2.2.1 session-expiry warning in assets/js/a11y.js.
+    $this["session_lifetime"] = (int) config("session.lifetime", 120);
+}
+?>
+==
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,6 +42,7 @@ escape = 1
     <script type="text/javascript" src="{{ 'assets/js/slick.min.js'|theme }}"></script>
     <link rel="stylesheet" href="{{ 'assets/css/aos.css'|theme }}">
     <script src="{{ 'assets/js/aos.js'|theme }}"></script>
+    <script src="{{ 'assets/js/a11y.js'|theme }}"></script>
     <script src="https://cdn.userway.org/widget.js" data-account="dHcqEw1u9a"></script>
 
 <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">-->
@@ -83,9 +92,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <body>
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PWW5NKQ"
+<noscript><iframe title="Google Tag Manager" aria-hidden="true" src="https://www.googletagmanager.com/ns.html?id=GTM-PWW5NKQ"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
+<a class="skip-link" href="#layout-content">Skip to main content</a>
+
 <div class="content-wrapper {{this.page.id}}">
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v8.0" nonce="X0nPVr3s"></script>
@@ -96,13 +107,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         tag_line=this.theme.tag_line
         page_title=this.page.title
         page_id=this.page.id
+        page_has_own_h1=is_detail_page|default(false)
         %}
     </header>
 
     <!-- Content -->
-    <section id="layout-content" class="{{this.page.id}}">
+    <main id="layout-content" class="{{this.page.id}}" tabindex="-1">
         {% page %}
-    </section>
+    </main>
 </div>
 {% if this.theme.enable_footer %}
 <!-- Footer -->
@@ -137,6 +149,37 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div id="gdpr-reload">
     {% partial 'gdpr' %}
 </div>
+
+{% if user %}
+<!--
+    WCAG 2.2.1 Timing Adjustable - the visitor is warned before the session
+    expires and can extend it from the keyboard. a11y.js reads the lifetime
+    from the config element and owns the countdown / focus handling.
+-->
+<span id="a11y-session-config"
+      class="sr-only"
+      data-lifetime-minutes="{{ session_lifetime }}"
+      data-timeout-redirect="{{ 'login'|page }}"></span>
+
+<div class="a11y-dialog-backdrop" id="a11y-session-dialog" hidden>
+    <div class="a11y-dialog"
+         role="alertdialog"
+         aria-modal="true"
+         aria-labelledby="a11y-session-title"
+         aria-describedby="a11y-session-desc">
+        <h2 id="a11y-session-title">Your session is about to expire</h2>
+        <p id="a11y-session-desc">
+            For your security you will be signed out in
+            <span class="a11y-dialog__countdown">5 minutes</span>.
+            Choose &ldquo;Stay signed in&rdquo; to keep working.
+        </p>
+        <div class="a11y-dialog__actions">
+            <button type="button" class="btn btn-primary" data-session-stay>Stay signed in</button>
+            <button type="button" class="btn btn-secondary" data-session-logout>Sign out now</button>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 
 <script>

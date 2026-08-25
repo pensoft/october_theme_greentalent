@@ -6,7 +6,7 @@
         <div class="col-md-11 col-xs-12 body_container">
             {% if entry.cover_image %}
             <a href="{{url}}">
-                <img src="{{entry.cover_image.getThumb(auto, auto, {'mode': 'crop'})}}">
+                <img src="{{entry.cover_image.getThumb(auto, auto, {'mode': 'crop'})}}" alt="">
             </a>
             {% endif %}
             <a href="{{url}}">
@@ -18,7 +18,7 @@
 
         </div>
         <div class="col-md-1 col-xs-12 read-more-events end-md center-xs">
-            <a href="{{url}}" class="read-more">Read more</a>
+            <a href="{{url}}" class="read-more" aria-label="Read more about {{ entry.title|striptags }}">Read more</a>
         </div>
     </div>
     {% endfor %}

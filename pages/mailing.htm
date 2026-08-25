@@ -39,10 +39,14 @@ $this['item']  = DB::table('users')->whereRaw('(TRIM(CONCAT(users.name, \' \', u
 
 ?>
 ==
-<h1 class="underline">Mailing</h1>
 <div class="container">
-    &nbsp; &nbsp; &nbsp;<a class="btn btn-primary" href="{{'my-sent-messages'|page}}">My sent messages</a>
-    <p>&nbsp;</p>
+    {# the heading was outside .container, so it sat flush to the viewport edge #}
+    <h2 class="underline">Mailing</h2>
+    <p><a class="btn btn-primary" href="{{'my-sent-messages'|page}}">My sent messages</a></p>
     {% component 'MailingForm' %}
-    <script>initMailingTooltip();</script>
+    <script>
+        /* defined nowhere in the theme or any plugin - calling it threw a
+           ReferenceError on every load of this page */
+        if (typeof initMailingTooltip === 'function') { initMailingTooltip(); }
+    </script>
 </div>

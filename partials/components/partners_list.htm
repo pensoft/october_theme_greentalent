@@ -6,12 +6,13 @@
         <div class="col-xs-12 partner_description mt-2">{{partner.content|raw}}</div>
     </div>
     {% if insider_members.getIM(partner.id).count > 0 %}
-    <div id="accordion-insider-members">
+    {# ids were fixed strings inside a loop, so every partner repeated them #}
+    <div id="accordion-insider-members-{{partner.id}}">
         <div class="accordion-border">
             <div class="row middle-xs accordion-toggle mb-2">
-                <div class="col-xs start-xs"><div class="showmembers read_more">Show members <span></span></div></div>
+                <div class="col-xs start-xs"><div class="showmembers read_more">Show members of {{partner.instituion}} <span aria-hidden="true"></span></div></div>
             </div>
-            <div class="accordion-content" id="insider-members" style="display: none;">
+            <div class="accordion-content" id="insider-members-{{partner.id}}" style="display: none;">
 
                 <div class="row top-xs">
                     {% for profile in insider_members.getIM(partner.id) %}
@@ -26,7 +27,7 @@
                             </div>
                             <div class="col-xs-12 coordinator_info">
                                 <h3>{{ profile.names }}</h3>
-                                <div class="body"><p class="read-more" onclick="expandReadMore(this);">Read more</p>{{ profile.content|raw }}</div>
+                                <div class="body"><p class="read-more" onclick="expandReadMore(this);" aria-label="Read more about {{ profile.names }}">Read more</p>{{ profile.content|raw }}</div>
                             </div>
                         </div>
                     </div>
@@ -48,12 +49,13 @@
         <div class="col-xs-12 partner_description mt-2">{{partner.content|raw}}</div>
     </div>
     {% if insider_members.getIM(partner.id).count > 0 %}
-    <div id="accordion-insider-members">
+    {# ids were fixed strings inside a loop, so every partner repeated them #}
+    <div id="accordion-insider-members-{{partner.id}}">
         <div class="accordion-border">
             <div class="row middle-xs accordion-toggle mb-2">
-                <div class="col-xs start-xs"><div class="showmembers read_more">Show members <span></span></div></div>
+                <div class="col-xs start-xs"><div class="showmembers read_more">Show members of {{partner.instituion}} <span aria-hidden="true"></span></div></div>
             </div>
-            <div class="accordion-content" id="insider-members" style="display: none;">
+            <div class="accordion-content" id="insider-members-{{partner.id}}" style="display: none;">
 
                 <div class="row top-xs">
                     {% for profile in insider_members.getIM(partner.id) %}
@@ -68,7 +70,7 @@
                             </div>
                             <div class="col-xs-12 coordinator_info">
                                 <h3>{{ profile.names }}</h3>
-                                <div class="body"><p class="read-more" onclick="expandReadMore(this);">Read more</p>{{ profile.content|raw }}</div>
+                                <div class="body"><p class="read-more" onclick="expandReadMore(this);" aria-label="Read more about {{ profile.names }}">Read more</p>{{ profile.content|raw }}</div>
                             </div>
                         </div>
                     </div>

@@ -74,7 +74,7 @@ return Response::download($pathToFile, $fileName, $headers);
 
 <section aria-labelledby="videos-heading">
     <div class="container">
-        <h1 id="videos-heading" class="sr-only">Videos</h1>
+        <h2 id="videos-heading" class="sr-only">Videos</h2>
 
         {% partial 'components/media-nav' active_tab='videos' %}
 
@@ -115,12 +115,22 @@ return Response::download($pathToFile, $fileName, $headers);
                 {% if record.file %}
                 <div class="links">
                     <div class="button_su">
+                        {# WCAG 1.2.2 - the caption track comes from the video record; #}
+                        {# auto-generated captions must be reviewed before upload.     #}
                         <video
                             controls
+                            preload="metadata"
                             width="100%"
                             height="267"
                             aria-label="{{record.name|striptags}}">
                             <source src="{{record.file.path}}" type="video/mp4">
+                            {% if record.captions %}
+                            <track kind="captions"
+                                   src="{{record.captions.path}}"
+                                   srclang="en"
+                                   label="English"
+                                   default>
+                            {% endif %}
                             <p>Your browser doesn't support HTML5 video.
                                 {% partial 'components/download-link'
                                     file=record.file
@@ -133,6 +143,12 @@ return Response::download($pathToFile, $fileName, $headers);
                         <h2 class="card_title">
                             {{ record.name|length > 65 ? record.name|striptags|slice(0, 65)|replace({"&nbsp;": " ", ".": ". "}) ~ '...' : record.name|striptags|replace({"&nbsp;": " ", ".": ". "}) }}
                         </h2>
+                        {% if record.transcript %}
+                        <details class="video-transcript">
+                            <summary>Transcript for {{ record.name|striptags }}</summary>
+                            <div class="video-transcript__body">{{ record.transcript|raw }}</div>
+                        </details>
+                        {% endif %}
                         {% partial 'components/download-link'
                             file=record.file
                             class='btn btn-primary'

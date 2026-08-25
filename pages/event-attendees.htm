@@ -22,6 +22,10 @@ function onStart(){
     $this['events'] =
             Entry::orderBy('start', 'desc')->paginate(20);
 
+    // Organiser and online/hybrid/on-site are stored on the reporting record,
+    // not on the calendar entry; index them by slug for the list below.
+    $this['reports'] = Data::get()->keyBy('slug')->all();
+
 $this['attendees'] = new class {
 public function getIM($id) {
 return Attendant::where('event_id', $id)
@@ -39,23 +43,22 @@ return Attendant::where('event_id', $id)
     <a href="{{'event-attendance-form'|page}}" class="btn btn-primary no-margin">Add attendance</a>
 
     <p>&nbsp;</p>
-    <div class="container">
-        <div class="tabs">
-            <a class="" href="#listView">List view</a> <span class="divider">|</span>
-            <a class="" href="#calendarView">Calendar view</a>
-
-        </div>
+    <div class="tabs" role="tablist" aria-label="Event view">
+            <a class="" href="#listView" id="attendees-tab-list" role="tab" aria-controls="listView" aria-selected="true">List view</a> <span class="divider" aria-hidden="true">|</span>
+        <a class="" href="#calendarView" id="attendees-tab-calendar" role="tab" aria-controls="calendarView" aria-selected="false">Calendar view</a>
     </div>
 
 
     <!--tabs content	-->
     <div class="container-fluid">
-        <div class="container">
 
+            {# an off-screen heading keeps the card titles at h3 under the page h1 #}
+            <h2 class="sr-only">Planned events</h2>
             <div class="row" id="listView">
                 <div class="events_list_container">
                     {% for entry in events %}
                     {% set url = entry.url ?  entry.url : '/events/' ~ entry.slug %}
+                    {% set report = reports[entry.slug]|default(null) %}
 
                     <div class="row entry_item middle-xs">
                         <div class="col-md-2 col-xs-12 date_container">
@@ -64,36 +67,36 @@ return Attendant::where('event_id', $id)
                             <span class="date_year">{{entry.start|date("Y")}}</span>
                         </div>
                         <div class="col-md-8 col-xs-12">
-                            <h3 class="card-title">{{event.title}}</h3>
+                            <h3 class="card-title">{{entry.title}}</h3>
                             <div class="body">
 
-                                {% if event.organiser %}
+                                {% if report and report.organiser %}
                                 <div>
                                     <span class="text-bold">Organiser:</span>
-                                    <span class="text-ligth">{{event.organiser}}</span>
+                                    <span class="text-ligth">{{report.organiser}}</span>
                                 </div>
                                 {% endif %}
                                 <div>
-                                    <span class="text-bold">LAFERIA organised/involved/relevant:</span>
+                                    <span class="text-bold">{{ this.theme.site_name }} organised/involved/relevant:</span>
                                     {% set arrayOrganised = {'1': 'organised', '2': 'involved', '3': 'relevant'} %}
-                                    <span class="text-ligth">{{arrayOrganised[event.identifier]}}</span>
+                                    <span class="text-ligth">{{arrayOrganised[entry.identifier]}}</span>
                                 </div>
                                 <div>
                                     <span class="text-bold">Venue:</span>
-                                    <span class="text-ligth">{{event.place}}</span>
+                                    <span class="text-ligth">{{entry.place}}</span>
                                 </div>
-                                {% if event.online_hybrid_onsite %}
+                                {% if report and report.online_hybrid_onsite %}
                                 <div>
                                     <span class="text-bold">Online, hybrid or on-site:</span>
                                     {% set onlineHybridOnsite = {'1': 'online', '2': 'hybrid', '3': 'on-site'} %}
-                                    <span class="text-ligth">{{onlineHybridOnsite[event.online_hybrid_onsite]}}</span>
+                                    <span class="text-ligth">{{onlineHybridOnsite[report.online_hybrid_onsite]}}</span>
                                 </div>
                                 {% endif %}
-                                {% if attendees.getIM(event.id).count %}
+                                {% if attendees.getIM(entry.id).count %}
                                 <div>
                                     <span class="text-bold">Attendees:</span>
 
-                                    {% for profile in attendees.getIM(event.id) %}
+                                    {% for profile in attendees.getIM(entry.id) %}
                                     <span class="text-ligth">{{profile.name}} {{profile.surname}}</span>
                                     {% if not loop.last %},&nbsp;{% endif %}
                                     {% endfor %}
@@ -105,17 +108,18 @@ return Attendant::where('event_id', $id)
                             </div>
                         </div>
                         <div class="col-md-2 col-xs-12 end-md center-xs">
-                            {% set url = '/events/' ~ event.slug %}
-                            <a href="{{url}}" target="_blank" class="btn btn-primary" style="width: 230px; font-size: unset;">Go to event website</a>
+                            {# url was reassigned from an undefined `event`, wiping the value set above #}
+                            <a href="{{url}}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width: 230px; font-size: unset;">Go to event website</a>
                             {% if user  %}
-                            <a href="{{'event-attendance-form'|page}}/{{event.id}}" class="btn btn-primary mb-1 mt-1" style="width: 230px;  font-size: unset;">Add attendance</a>
+                            <a href="{{'event-attendance-form'|page}}/{{entry.id}}" class="btn btn-primary mb-1 mt-1" style="width: 230px;  font-size: unset;">Add attendance</a>
                             {% endif %}
                         </div>
                     </div>
 
                     {% endfor %}
                 </div>
-                {% if events.count > 20 %}
+                {# .count is the current page size, capped at 20, so it never exceeded 20 #}
+                {% if events.lastPage > 1 %}
                 <div class="row container">
                     {{ events.fragment('listView').render|raw }}
                 </div>
@@ -125,8 +129,6 @@ return Attendant::where('event_id', $id)
             <div class="row" id="calendarView">
                 {% component 'calendar' %}
             </div>
-
-        </div>
 
     </div>
 

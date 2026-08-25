@@ -3,6 +3,7 @@
 	{% for item in partners %}
 		{% partial "components/partners_list_logos.htm"
 			image=item.cover.getPath()
+			name=item.instituion
 		%}
 	{% endfor %}
 	</div>

@@ -42,6 +42,14 @@ DB::raw("
 
 )->where('slug', $this->param('slug'))->first();
 
+// WCAG 2.4.2 Page Titled - SeoCmsPage is attached to the layout, and layout
+// components run before page code, so the <title> it produced still says
+// "Events". Point it at the entry. The hero heading keeps using this.page.title,
+// so the banner still reads as the section name.
+if ($seoComponent = $this->controller->findComponentByName('SeoCmsPage')) {
+$seoComponent->seo_title = $this['entry']['title'];
+}
+
 \BennoThommo\Meta\Meta::set('twitter:card', 'summary_large_image');
 \BennoThommo\Meta\Meta::set('twitter:title', $this['entry']['title']);
 \BennoThommo\Meta\Meta::set('twitter:description', str_limit(Html::strip($this['entry']['description']), 255));
@@ -65,18 +73,22 @@ $this['entries'] = Entry::orderBy('start', 'asc')->paginate(20);
 
 $this['slug'] = $this->param('slug');
 
+// The detail view renders its own <h1>; the layout uses this to keep the hero
+// heading from becoming a second one.
+$this['is_detail_page'] = (bool) $this->param('slug');
+
 
 }
 ?>
 ==
 {% if not slug %}
 
-<main class="container-fluid events" role="main">
+<div class="container-fluid events">
     <section class="container tabs_container" role="region" aria-labelledby="events-heading">
-        <h1 id="events-heading" class="sr-only">Events</h1>
+        <h2 id="events-heading" class="sr-only">Events</h2>
         <div class="tabs" role="tablist" aria-label="Event view options">
-            <a class="" href="#listView" role="tab" aria-selected="true" aria-controls="listView" id="tab-list"><span class="visually-hidden">List View</span></a>
-            <a class="" href="#calendarView" role="tab" aria-selected="false" aria-controls="calendarView" id="tab-calendar"><span class="visually-hidden">Calendar View</span></a>
+            <a class="" href="#listView" role="tab" aria-selected="true" aria-controls="listView" id="tab-list"><span class="sr-only">List View</span></a>
+            <a class="" href="#calendarView" role="tab" aria-selected="false" aria-controls="calendarView" id="tab-calendar"><span class="sr-only">Calendar View</span></a>
         </div>
     </section>
 
@@ -85,7 +97,7 @@ $this['slug'] = $this->param('slug');
             <section class="events_list_container mb-4" role="region" aria-label="Events list">
                 {% for entry in entries %}
                 {% set url = entry.url ?  entry.url : '/events/' ~ entry.slug %}
-                <article class="row entry_item middle-xs" role="article" aria-labelledby="event-title-{{loop.index}}">
+                <article class="row entry_item middle-xs" aria-labelledby="event-title-{{loop.index}}">
                     <div class="col-md-2 col-xs-12">
                         <div class="date_container"
                              {% if entry.cover_image %}
@@ -93,7 +105,6 @@ $this['slug'] = $this->param('slug');
                              role="img"
                              aria-label="Event cover image for {{entry.title|striptags}}"
                              {% else %}
-                             role="text"
                              aria-label="Event date"
                              {% endif %}
                         >
@@ -126,13 +137,13 @@ $this['slug'] = $this->param('slug');
             {% component 'calendar' %}
         </div>
     </div>
-</main>
+</div>
 
 {% else %}
 
 {% if entry %}
-<main class="container" role="main">
-    <article class="row single-events-item" role="article" aria-labelledby="event-detail-title">
+<div class="container">
+    <article class="row single-events-item" aria-labelledby="event-detail-title">
         <div class="col-md-12 col-xs-12 mb-2">
             <nav aria-label="Breadcrumb">
                 <a href="/events" class="go-back-link" aria-label="Go back to events list">Back</a>
@@ -145,7 +156,6 @@ $this['slug'] = $this->param('slug');
                  role="img"
                  aria-label="Event cover image for {{entry.title|striptags}}"
                  {% else %}
-                 role="text"
                  aria-label="Event date information"
                  {% endif %}
             >
@@ -167,7 +177,7 @@ $this['slug'] = $this->param('slug');
         </div>
 
         <div class="col-md-9 col-xs-12">
-            <div class="text-published" role="text" aria-label="Event location">{{entry.place}}</div>
+            <div class="text-published" aria-label="Event location">{{entry.place}}</div>
             <h1 class="single-event-title" id="event-detail-title">{{entry.title}}</h1>
 
             <div class="content" role="region" aria-label="Event description">
@@ -195,7 +205,7 @@ $this['slug'] = $this->param('slug');
             </div>
         </div>
     </article>
-</main>
+</div>
 {% endif %}
 
 {% endif %}

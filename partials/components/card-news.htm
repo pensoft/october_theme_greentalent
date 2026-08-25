@@ -14,8 +14,10 @@ function onStart()
 <div class="news-item">
     
     {% if image %}
-    <a class="news-image" href="{{url}}">
-        <img class="news-img-left" src="{{image}}">
+    {# the thumbnail is decorative; the card heading below links to the same
+       article, so this link needs its own name rather than a duplicate alt #}
+    <a class="news-image" href="{{url}}" tabindex="-1" aria-hidden="true">
+        <img class="news-img-left" src="{{image}}" alt="">
     </a>
     {% endif %}
     <div class="news-container">
@@ -31,6 +33,6 @@ function onStart()
         <div class="body">{{str_limit(content, 500, readmore)|raw}}</div>
     </div>
     <script>
-        createTippy('#share-{{slug}}', { content: '<div class="icons">{% if this.theme.facebook %}<a class="fb-xfbml-parse-ignore pr p-facebook" href="https://www.facebook.com/sharer/sharer.php?u={{url}}&amp;src=sdkpreparse" target="_blank" ></a>{% endif %}{% if this.theme.twitter %}<a class="pr p-twitter" href="https://twitter.com/intent/tweet?text={{encoded_title}}{{url}}" target="_blank"></a>{% endif %}{% if this.theme.linkedin %}<a class="fb-xfbml-parse-ignore pr p-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url={{url}}" target="_blank" ></a>{% endif %}</div>'})
+        createTippy('#share-{{slug}}', { content: '<div class="icons">{% if this.theme.facebook %}<a class="fb-xfbml-parse-ignore pr p-facebook" href="https://www.facebook.com/sharer/sharer.php?u={{url}}&amp;src=sdkpreparse" target="_blank" rel="noopener noreferrer"><span class="sr-only">Share on Facebook (opens in new window)</span></a>{% endif %}{% if this.theme.twitter %}<a class="pr p-twitter" href="https://twitter.com/intent/tweet?text={{encoded_title}}{{url}}" target="_blank" rel="noopener noreferrer"><span class="sr-only">Share on Twitter (opens in new window)</span></a>{% endif %}{% if this.theme.linkedin %}<a class="fb-xfbml-parse-ignore pr p-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url={{url}}" target="_blank" rel="noopener noreferrer"><span class="sr-only">Share on LinkedIn (opens in new window)</span></a>{% endif %}</div>'})
     </script>
 </div>

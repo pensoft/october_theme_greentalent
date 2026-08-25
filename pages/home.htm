@@ -133,7 +133,7 @@ function onStart(){
         <div class="row highligts-row">
             <div class="col-md-8 col-xs-12 latest-news">
                 {% if highlights|length %}
-                <article class="news-card" role="article" aria-labelledby="featured-article-title">
+                <article class="news-card" aria-labelledby="featured-article-title">
                     <div class="img-container">
                         <a href="{{'news'|page}}/{{highlights[0].slug}}" aria-label="Read full article: {{ highlights[0].title|striptags }}">
                             <img src="{{ highlights[0].cover.path }}"
@@ -158,7 +158,7 @@ function onStart(){
             <aside class="col-md-4 col-xs-12 highlight-news" role="complementary" aria-label="Additional news articles">
                 <h3 class="sr-only">More recent articles</h3>
                 {% for article in highlights|slice(1, 2) %}
-                <article class="row news-card" role="article" aria-labelledby="article-title-{{loop.index}}">
+                <article class="row news-card" aria-labelledby="article-title-{{loop.index}}">
                     <div class="img-container">
                         <a href="{{'news'|page}}/{{article.slug}}" aria-label="Read full article: {{ article.title|striptags }}">
                             <img src="{{ article.cover.path }}"

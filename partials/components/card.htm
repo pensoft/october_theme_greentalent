@@ -17,7 +17,7 @@ function onStart()
         <div class="card-header">{{header}}</div>
     {% endif %}
     {% if image %}
-        <img class="{% if image_position %}card-img-{{image_position}}{% endif %}" src="{{image}}">
+        <img class="{% if image_position %}card-img-{{image_position}}{% endif %}" src="{{image}}" alt="">
     {% endif %}
     {% if body or title %}
     <div class="card-body">

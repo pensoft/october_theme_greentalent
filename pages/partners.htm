@@ -13,6 +13,14 @@ function onStart(){
 	$this['partners'] =  Partners::where('type', 1)->get();
     $this['partner'] = Partners::where('id', $this->param('id'))->first();
     $this['is_detail_page'] = $this['partner'] ? true : false;
+
+    // WCAG 2.4.2 Page Titled - SeoCmsPage is attached to the layout, and layout
+    // components run before page code, so the <title> it produced still says
+    // "Partners". Point it at the partner. The hero heading keeps using
+    // this.page.title, so the banner still reads as the section name.
+    if ($this['is_detail_page'] && ($seoComponent = $this->controller->findComponentByName('SeoCmsPage'))) {
+        $seoComponent->seo_title = $this['partner']['instituion'];
+    }
 }
 
 ?>
@@ -59,7 +67,7 @@ function onStart(){
     {% else %}
 
     <section aria-labelledby="partners-heading">
-        <h1 id="partners-heading" class="sr-only">Partners</h1>
+        <h2 id="partners-heading" class="sr-only">Partners</h2>
 
         <div class="row start-md center-xs partner_items_row">
             {% for k, partner in partners %}

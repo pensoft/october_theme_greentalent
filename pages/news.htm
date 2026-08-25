@@ -56,6 +56,14 @@ $seoTitle = $this['article']['title'];
 $seoKeywords = $this['article']['meta_keywords'] ?: $this['article']['keywords'];
 $seoDescription = str_limit(Html::strip($this['article']['content']), 255);
 
+// WCAG 2.4.2 Page Titled - SeoCmsPage is attached to the layout, and layout
+// components run before page code, so the <title> it produced still says "News".
+// Point it at the article. The hero heading keeps using this.page.title, so the
+// banner still reads as the section name.
+if ($seoTitle && ($seoComponent = $this->controller->findComponentByName('SeoCmsPage'))) {
+$seoComponent->seo_title = $seoTitle;
+}
+
 if (class_exists('\BennoThommo\Meta\Meta')) {
 if($seoTitle) {
 \BennoThommo\Meta\Meta::set('title', $seoTitle);
@@ -120,7 +128,7 @@ $this['related'] = $related;
 ?>
 ==
 {% if is_detail_page %}
-<main class="container" role="main">
+<div class="container">
     <div class="row middle-xs">
         <div class="col-md-6 col-xs-12 start-md center-xs">
             <h1 class="single-new-title" id="article-title" data-aos="fade-up">{{article.title}}</h1>
@@ -139,12 +147,12 @@ $this['related'] = $related;
     <div class="row">
         <div class="col-md-4 col-xs-12"></div>
         <div class="col-md-8 col-xs-12">
-            <article class="row single-news-item" role="article" aria-labelledby="article-title">
+            <article class="row single-news-item" aria-labelledby="article-title">
                 {% if article.cover %}
                 <img src="{{ article.cover.path }}" alt="Featured image for: {{ article.title|striptags }}" data-aos="fade-up" />
                 {% endif %}
                 {% if article.caption %}
-                <div class="caption" role="text">{{article.caption|raw}}</div>
+                <div class="caption">{{article.caption|raw}}</div>
                 {% endif %}
                 <div class="content" role="region" aria-label="Article content">
                     {{article.content|raw}}
@@ -188,26 +196,21 @@ $this['related'] = $related;
 
 
 
-    </div>
-</main>
+</div>
 
 {% else %}
 
-<main class="container" role="main">
+<div class="container">
     <div class="category-tabs-container mb-2">
         {% if categories.count > 0 %}
-        <nav class="row category-tabs" id="category-tabs" role="navigation" aria-label="News categories">
+        <nav class="row category-tabs" id="category-tabs" aria-label="News categories">
             <a href="{{ 'news'|page }}"
                class="{{ 'all' == categoryId ? 'active' : '' }}"
-               role="tab"
-               aria-selected="{{ 'all' == categoryId ? 'true' : 'false' }}"
-               aria-controls="news-content">All News</a>
+               {% if 'all' == categoryId %}aria-current="page"{% endif %}>All News</a>
             {% for category in categories %}
             <a href="{{ 'news'|page }}?categoryId={{ category.id }}"
                class="{{ category.id == categoryId ? 'active' : '' }}"
-               role="tab"
-               aria-selected="{{ category.id == categoryId ? 'true' : 'false' }}"
-               aria-controls="news-content">{{ category.name }}</a>
+               {% if category.id == categoryId %}aria-current="page"{% endif %}>{{ category.name }}</a>
             {% endfor %}
         </nav>
         {% endif %}
@@ -217,7 +220,7 @@ $this['related'] = $related;
         <div class="row">
             {% for record in records %}
             <div class="col-md-4 col-xs-12 highlight-news">
-                <article class="row news-card" role="article" aria-labelledby="news-title-{{loop.index}}">
+                <article class="row news-card" aria-labelledby="news-title-{{loop.index}}">
                     <div class="img-container">
                         <a href="{{'news'|page}}/{{record.slug}}" aria-label="Read full article: {{ record.title|striptags }}">
                             <img src="{{ record.cover.path }}" alt="Featured image for: {{ record.title|striptags }}">
@@ -244,6 +247,6 @@ $this['related'] = $related;
             {{ records.render|raw }}
         </nav>
     </section>
-</main>
+</div>
 
 {% endif %}

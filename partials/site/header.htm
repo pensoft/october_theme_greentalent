@@ -21,60 +21,74 @@ secondaryClasses = "dropdown-menu"
 numberOfLevels = 2
 ==
 {% if user %}
-<nav class="fixed navbar-loggedin-user ">
+<nav class="fixed navbar-loggedin-user" aria-label="Account">
     <div class="navbar-collapse collapse row middle-xs">
         <div class="col-xs-12 col-md-9">{% component 'login' %}</div>
         <div class="col-xs-2 end-xs  col-md-3 hidden-xs">
             {% if user.avatar %}
-            <a href="/profile" class="profile_name"><span>{{ user.name }} {{ user.surname }} &nbsp; &nbsp; </span><img alt="{{ user.name }} {{ user.surname }}" src="{{user.avatar.getThumb(30,30, { mode : 'crop' } )}}" style="border-radius: 50%; margin-right:20px;" align="right"> </a>
+            {# alt="" - the name is already in the link text, so the image is decorative here #}
+            <a href="/profile" class="profile_name"><span>{{ user.name }} {{ user.surname }} &nbsp; &nbsp; </span><img alt="" src="{{user.avatar.getThumb(30,30, { mode : 'crop' } )}}" style="border-radius: 50%; margin-right:20px;" align="right"> </a>
             {% else %}
 
-            <a href="/profile" class="profile_name"><span>{{ user.name }} {{ user.surname }} &nbsp; &nbsp; </span><img alt="{{ user.name }} {{ user.surname }}" src="{{ 'CMS_icons_avatar_white.svg'|media }}" width="30" height="30" style="margin-right:20px;" align="right"></a>
+            <a href="/profile" class="profile_name"><span>{{ user.name }} {{ user.surname }} &nbsp; &nbsp; </span><img alt="" src="{{ 'CMS_icons_avatar_white.svg'|media }}" width="30" height="30" style="margin-right:20px;" align="right"></a>
             {% endif %}
         </div>
+    </div>
 </nav>
 {% endif %}
 
-<nav class="pr-1 pl-1 navbar fixed" id="headernavbar" role="navigation" aria-label="Main navigation" {% if user %} style="margin-top:69px;"{% endif %}>
+<nav class="pr-1 pl-1 navbar fixed" id="headernavbar" aria-label="Main navigation" {% if user %} style="margin-top:69px;"{% endif %}>
     <div id="menuToggle">
-        <input type="checkbox" id="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="headerNavbarNav" />
+        {#
+            The hamburger is a styled checkbox because the CSS animation keys off
+            :checked. role="button" + aria-expanded gives it the right semantics;
+            a11y.js keeps the state, the label and Enter-to-toggle in sync.
+        #}
+        <input type="checkbox"
+               id="mobile-menu-toggle"
+               role="button"
+               aria-label="Open main menu"
+               aria-expanded="false"
+               aria-controls="menu" />
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         {% component 'menu' %}
     </div>
 
-    <a href="{{'home'|page}}" class="navbar-brand" aria-label="Homepage - {{site_name}}" style="background: url('{{ this.theme.site_logo.getPath() }}') center no-repeat; background-size: contain;">
+    <a href="{{'home'|page}}" class="navbar-brand" style="background: url('{{ this.theme.site_logo.getPath() }}') center no-repeat; background-size: contain;">
         <span class="sr-only">{{site_name}} - Home</span>
     </a>
 
-    <div class="navbar-collapse collapse center-xs" id="headerNavbarNav" role="menu" aria-hidden="true" style="display: none;">
+    {#
+        No aria-hidden here: above 1000px the stylesheet overrides the inline
+        display:none, so hiding it from assistive tech would take the whole
+        desktop navigation out of the accessibility tree.
+    #}
+    <div class="navbar-collapse collapse center-xs" id="headerNavbarNav" style="display: none;">
         {% component 'menu' %}
     </div>
 
-    <div class="search-and-social-media hidden-xs" aria-label="Social media and search">
-        <ul class="search-nav" role="list">
+    <div class="search-and-social-media hidden-xs">
+        <ul class="search-nav">
             <li class="nav-item social">
-                <a class="pr p-search middle search-btn" href="#" role="button" onclick="showSearchForm();return false;" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showSearchForm();}" aria-label="Open search" aria-expanded="false" aria-controls="search">
+                <a class="pr p-search middle search-btn" href="#search" role="button" onclick="showSearchForm();return false;" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showSearchForm();}" aria-expanded="false" aria-controls="search">
                     <span class="sr-only">Search</span>
                 </a>
             </li>
         </ul>
     </div>
 
-
-
-
-    <div id="search" class="search" style="display: none;" role="search" aria-label="Site search">
+    <div id="search" class="search" style="display: none;" role="search" aria-label="Site search" aria-hidden="true">
         <div class="container">
-            <a class="close-search" href="#" role="button" onclick="hideSearchForm();return false;" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();hideSearchForm();}" aria-label="Close search">
+            <a class="close-search" href="#" role="button" onclick="hideSearchForm();return false;" aria-label="Close search">
                 <span aria-hidden="true">&#10006;</span>
             </a>
-            <form class="input-group align-items-start" action="{{ url('search')}}" method="get" aria-label="Search the website">
-                <label for="search-input" class="sr-only">Search</label>
-                <input class="form-control search_input" id="search-input" name="q" type="text" autocomplete="on" placeholder="Search" aria-label="Search query">
-                <button class="btn btn-link pr p-search big text-grey-search-btn" type="submit" aria-label="Submit search">
-                    <span class="sr-only">Search</span>
+            <form class="input-group align-items-start" action="{{ url('search')}}" method="get">
+                <label for="search-input" class="sr-only">Search the website</label>
+                <input class="form-control search_input" id="search-input" name="q" type="text" autocomplete="on" placeholder="Search">
+                <button class="btn btn-link pr p-search big text-grey-search-btn" type="submit">
+                    <span class="sr-only">Submit search</span>
                 </button>
             </form>
         </div>
@@ -82,7 +96,13 @@ numberOfLevels = 2
 
 </nav>
 
-<main id="main-content" role="main">
+{#
+    The hero is presentation for the page below it, so it stays inside the
+    banner landmark - the single <main> lives in the layout. It carries the
+    page's only <h1>, unless the page renders its own (article and event detail
+    pages do), in which case it degrades to a styled paragraph.
+#}
+<div class="page-hero">
     {% if page_id == 'home' %}
     <div class="header-image video-carousel">
         <div class="carousel-slide">
@@ -94,10 +114,12 @@ numberOfLevels = 2
         <div class="jumbotron hero">
             <div class="container">
                 <div class="intro">
-                    <h1 class="intro-text">
-                        {{tag_line|raw}}
-                    </h1>
-                    <a href="https://platform.green-talent.eu/" target="_blank" class="intro-cta">Visit our Capacity-Building Platform</a>
+                    {% if page_has_own_h1 %}
+                    <p class="intro-text">{{tag_line|raw}}</p>
+                    {% else %}
+                    <h1 class="intro-text">{{tag_line|raw}}</h1>
+                    {% endif %}
+                    <a href="https://platform.green-talent.eu/" target="_blank" rel="noopener noreferrer" class="intro-cta">Visit our Capacity-Building Platform</a>
                 </div>
             </div>
         </div>
@@ -112,15 +134,21 @@ numberOfLevels = 2
         <div class="jumbotron">
             <div class="container">
                 <div class="intro">
+                    {% if page_has_own_h1 %}
+                    <p class="hero-title" data-aos-duration="1500" data-aos-delay="500" data-aos-offset="-200">
+                        {% if page_title %} {{page_title}} {% else %} {{site_name}} {% endif %}
+                    </p>
+                    {% else %}
                     <h1 data-aos-duration="1500" data-aos-delay="500" data-aos-offset="-200">
                         {% if page_title %} {{page_title}} {% else %} {{site_name}} {% endif %}
                     </h1>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
     {% endif %}
-</main>
+</div>
 
 {% if user %}
 <script>$(document).trigger('profile')</script>

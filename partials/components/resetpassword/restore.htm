@@ -6,7 +6,8 @@
         data-request-redirect="/login"
 		>
 	<div class="field email">
-		<input name="email" type="email" id="userRestoreEmail" placeholder="Enter your email">
+		<label for="userRestoreEmail">Email address <span class="required-marker" aria-hidden="true">*</span></label>
+		<input name="email" type="email" id="userRestoreEmail" required aria-required="true" autocomplete="email" placeholder="Enter your email">
 	</div>
 
 	<div class="mt-1 text-center">

@@ -2,51 +2,65 @@
     <input type="hidden" name="_handler" value="onSubmit">
     {{ form_token() }}
     {{ form_sessionKey() }}
-    <div id="error_messages">
+    {#
+        role="alert" so a failed submit is announced without the visitor having
+        to go looking for it; a11y.js additionally builds a focusable error
+        summary here and moves focus to it.
+    #}
+    <div id="error_messages" role="alert" aria-live="assertive">
         {% flash error %}
         <p>{{ message }}</p>
         {% endflash %}
     </div>
     <div class="ui form get_involved_form">
         <input name="profile" type="hidden" value="1">
+        <p class="form-required-note"><span class="required-marker" aria-hidden="true">*</span> indicates a required field.</p>
         <div class="row between-md around-xs">
             <div class="col-md-6 col-xs-12 field">
-                <label for="first_name">Name <span class="red">*</span> </label>
-                <input name="first_name" type="text" class="" id="first_name" value="" placeholder="First and Last names">
+                <label for="first_name">Name <span class="required-marker" aria-hidden="true">*</span> </label>
+                <input name="first_name" type="text" id="first_name" value="" required aria-required="true" autocomplete="name" placeholder="First and Last names">
             </div>
 
             <div class="col-md-6 col-xs-12 field">
-                <label for="email">Email address <span class="red">*</span></label>
-                <input name="email" type="email" class="" id="email" value="" placeholder="Email address">
+                <label for="email">Email address <span class="required-marker" aria-hidden="true">*</span></label>
+                <input name="email" type="email" id="email" value="" required aria-required="true" autocomplete="email" placeholder="Email address">
             </div>
 
             <div class="col-md-6 col-xs-12 field">
-                <label for="affiliation">Affiliation <span class="red">*</span> </label>
-                <input name="affiliation" type="text" class="" id="affiliation" value="" placeholder="Name of institute a representative of">
+                <label for="affiliation">Affiliation <span class="required-marker" aria-hidden="true">*</span> </label>
+                <input name="affiliation" type="text" id="affiliation" value="" required aria-required="true" autocomplete="organization" placeholder="Name of institute a representative of">
             </div>
 
             <div class="col-md-6 col-xs-12 field">
-                <label for="country">Country <span class="red">*</span></label>
-                <input name="country" type="text" class="" id="country" value="" placeholder="Country">
+                <label for="country">Country <span class="required-marker" aria-hidden="true">*</span></label>
+                <input name="country" type="text" id="country" value="" required aria-required="true" autocomplete="country-name" placeholder="Country">
             </div>
 
             <div class="col-md-6 col-xs-12 field">
-                <label for="main_language">Main language <span class="red">*</span> </label>
-                <input name="main_language" type="text" class="" id="main_language" value="" placeholder="Main language">
+                <label for="main_language">Main language <span class="required-marker" aria-hidden="true">*</span> </label>
+                <input name="main_language" type="text" id="main_language" value="" required aria-required="true" placeholder="Main language">
             </div>
 
             <div class="col-md-6 col-xs-12 field">
-                <label for="second_language">Second language <span class="red">*</span></label>
-                <input name="email" type="text" class="" id="second_language" value="" placeholder="Second language">
+                <label for="second_language">Second language <span class="required-marker" aria-hidden="true">*</span></label>
+                {# name was "email", which overwrote the address field on submit #}
+                <input name="second_language" type="text" id="second_language" value="" required aria-required="true" placeholder="Second language">
             </div>
 
+            {#
+                A radio group needs a group label, and <label for="interest">
+                pointed at a <div>, so the question was never announced. fieldset
+                + legend is the native grouping the checklist is asking for.
+            #}
             <div class="row box" id="interest">
                 <div class="col-md-12 col-xs-12 field" id="payment_options_field">
-                    <label for="interest">Interest in GREEN TALENT <span class="red">*</span></label>
-                    <label><input name="interest[]" type="radio" value="pay_now">Ecotoxicological data gaps</label>
-                    <label><input name="interest[]" type="radio" value="group_invoice">Co-monitoring scheme for pesticides and pollinators</label>
-                    <label><input name="interest[]" type="radio" value="group_invoice">Models for predicting pesticide toxicological effects on pollinators</label>
-                    <label><input name="interest[]" type="radio" value="group_invoice">Population-level systems-based approach to risk and policy assessment</label>
+                    <fieldset class="interest-fieldset">
+                        <legend>Interest in GREEN TALENT <span class="required-marker" aria-hidden="true">*</span></legend>
+                        <label for="interest_ecotox"><input id="interest_ecotox" name="interest[]" type="radio" value="ecotoxicological_data_gaps" required aria-required="true"> Ecotoxicological data gaps</label>
+                        <label for="interest_comonitoring"><input id="interest_comonitoring" name="interest[]" type="radio" value="co_monitoring_scheme"> Co-monitoring scheme for pesticides and pollinators</label>
+                        <label for="interest_models"><input id="interest_models" name="interest[]" type="radio" value="toxicological_models"> Models for predicting pesticide toxicological effects on pollinators</label>
+                        <label for="interest_population"><input id="interest_population" name="interest[]" type="radio" value="population_level_approach"> Population-level systems-based approach to risk and policy assessment</label>
+                    </fieldset>
                 </div>
             </div>
 

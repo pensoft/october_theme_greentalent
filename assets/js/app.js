@@ -38,13 +38,17 @@ function animateAboutBottom(){
 $(document).ready(function () {
     // $("nav").removeClass("no-transition");
     /* MENU */
-    $('.navbar-nav').attr('id', 'menu'); // please don't remove this line
+    // Only the slide-out panel is addressed as #menu; stamping every .navbar-nav
+    // produced duplicate ids, which put two elements with the same id in the
+    // accessibility tree. please don't remove this line
+    $('#menuToggle .navbar-nav').first().attr('id', 'menu');
 
     // the navbar search trigger is desktop-only; give the slide-out menu its own,
     // appended last so it sits under the sign-in item
     $('#menuToggle .navbar-nav').first().append(
         '<li class="nav-item mobile-search">' +
-        '<a href="#" role="button" onclick="showSearchForm();return false;">Search</a>' +
+        '<a href="#search" role="button" aria-controls="search" aria-expanded="false" ' +
+        'onclick="showSearchForm();return false;">Search</a>' +
         '</li>'
     );
     $('<div class="calendar-top"></div>').insertBefore("#calendar");
@@ -110,14 +114,25 @@ $(document).ready(function () {
     }
 
 
-    $('body').on('click', '.work_packages .accordion-toggle', function () {
-        if ($(this).children().find(".accordion-content").is(':visible')) {
-            $(this).children().find(".accordion-content").slideUp(300);
-            $(this).children().find(".plusminus").html('<span class="plus">Read more</span>');
-        } else {
-            $(this).children().find(".accordion-content").slideDown(300);
-            $(this).children().find(".plusminus").html('<span class="minus">Read less</span>');
+    $('body').on('click', '.work_packages .accordion-toggle', function (event) {
+        // Links inside an open panel must not collapse it on their way out.
+        if ($(event.target).closest('.accordion-content').length) {
+            return;
         }
+
+        var $toggle = $(this);
+        var $content = $toggle.find('.accordion-content');
+        var $trigger = $toggle.find('.accordion-trigger');
+        var expanded = !$content.is(':visible');
+
+        if (expanded) {
+            $content.removeAttr('hidden').slideDown(300);
+            $toggle.find('.plusminus').html('<span class="minus">Read less</span>');
+        } else {
+            $content.slideUp(300, function () { $content.attr('hidden', 'hidden'); });
+            $toggle.find('.plusminus').html('<span class="plus">Read more</span>');
+        }
+        $trigger.attr('aria-expanded', expanded ? 'true' : 'false');
     });
 
     $('.work_packages .accordion-content').each(function (index, value) {
@@ -499,14 +514,18 @@ function showSearchForm() {
     $('#layout-header').toggleClass('full-width');
     $('#search').toggle();
     $('.navbar a.p-search').css('visibility', 'hidden');
-    $('#menu li').hide();
+    // every nav list in the bar, not just the slide-out panel - these all
+    // used to carry id="menu", which is how the old selector reached them
+    $('.navbar .navbar-nav > li').hide();
+    $('[aria-controls="search"]').attr('aria-expanded', $('#search').is(':visible') ? 'true' : 'false');
 }
 
 function hideSearchForm() {
     $('#layout-header').toggleClass('full-width');
     $('#search').hide();
     $('.navbar a.p-search').css('visibility', 'visible');
-    $('#menu li').show();
+    $('.navbar .navbar-nav > li').show();
+    $('[aria-controls="search"]').attr('aria-expanded', 'false');
 }
 
 function requestFormLibrary() {

@@ -17,23 +17,31 @@ function onStart(){
 
     <div class="row top-xs work_packages">
         {% for key, item in records %}
-        <div class="accordion-border key_{{key}}" role="article">
-            <div class="row middle-xs accordion-toggle"
-                 role="button"
-                 tabindex="0"
-                 aria-expanded="false"
-                 aria-controls="accordion-content-{{key}}"
-                 aria-labelledby="accordion-title-{{key}}">
+        <div class="accordion-border key_{{key}}">
+            {#
+                The whole row stays clickable for pointer users, but the control
+                that carries the state is a real <button> inside the heading -
+                a role="button" wrapper containing the panel and its links is
+                not a valid accordion and flattens the content for screen
+                readers.
+            #}
+            <div class="row middle-xs accordion-toggle">
                 <div class="col-md-2 col-xs-2 start-md center-xs">
                     <div class="green_bullet" aria-hidden="true">{{item.prefix}}</div>
                 </div>
                 <div class="col-md-10 col-xs-12 accordion_container">
-                    <h3 class="accordion_title" id="accordion-title-{{key}}">{{item.title}}</h3>
+                    <h3 class="accordion_title">
+                        <button type="button"
+                                class="accordion-trigger"
+                                id="accordion-title-{{key}}"
+                                aria-expanded="false"
+                                aria-controls="accordion-content-{{key}}">{{item.title}}</button>
+                    </h3>
                     <div class="accordion-content"
                          id="accordion-content-{{key}}"
                          role="region"
                          aria-labelledby="accordion-title-{{key}}"
-                         aria-hidden="true"
+                         hidden
                          style="display: none;">
                         {{item.body|raw}}
                     </div>
