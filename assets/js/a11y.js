@@ -1057,36 +1057,6 @@
     }
 
     // -------------------------------------------------------------------------
-    // The home popup is opened by app.js; register it as an overlay so Tab is
-    // contained and Escape is handled by the same code path as everything else.
-    // -------------------------------------------------------------------------
-    function initHomePopupTrap() {
-        var popup = document.getElementById('homePopup');
-        if (!popup || !window.MutationObserver) return;
-
-        var observer = new MutationObserver(function () {
-            var visible = popup.classList.contains('is-visible');
-            var registered = overlayStack.some(function (o) { return o.root === popup; });
-            if (visible && !registered) {
-                openOverlay({
-                    root: popup,
-                    returnFocusTo: document.activeElement,
-                    initialFocus: popup.querySelector('.home-popup-close'),
-                    focusDelay: 520,
-                    close: function () {
-                        var closer = popup.querySelector('[data-home-popup-close]');
-                        if (closer) closer.click();
-                    }
-                });
-            } else if (!visible && registered) {
-                closeOverlay(popup);
-            }
-        });
-
-        observer.observe(popup, { attributes: true, attributeFilter: ['class'] });
-    }
-
-    // -------------------------------------------------------------------------
     // Guarded: a second DOMContentLoaded (or a page-transition library firing it
     // again) would stack duplicate listeners, and initSearchOverlay would wrap
     // its own wrapper around showSearchForm.
@@ -1121,7 +1091,6 @@
         run('sessionTimeout', typeof initSessionTimeout === 'function' ? initSessionTimeout : null);
         run('clickOnlyControls', typeof initClickOnlyControls === 'function' ? initClickOnlyControls : null);
         run('bootstrapModals', typeof initBootstrapModals === 'function' ? initBootstrapModals : null);
-        run('homePopupTrap', typeof initHomePopupTrap === 'function' ? initHomePopupTrap : null);
         run('accessibleNames', typeof initAccessibleNameFallbacks === 'function' ? initAccessibleNameFallbacks : null);
     }
 
